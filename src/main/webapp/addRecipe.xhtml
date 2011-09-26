@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Rezept hinzufügen</title>
+</h:head>
+
+<h:body>
+    <h:form id="rezeptForm">
+        <h1>Rezeptbezeichnung</h1>
+        Titel: <p:inputText value="#{rezeptController.rezeptName}"/>
+        Rezepttext: <p:inputTextarea value="#{rezeptController.rezeptAnleitung}"/>
+
+        <h1>Zutat hinzufügen</h1>
+        <p:message showDetail="true" />
+        <p:dataTable value="#{rezeptController.zutaten}" var="data">
+            <p:column headerText="Artikelname">
+                <h:outputText value="#{data.artikel.name}" />
+            </p:column>
+            <p:column headerText="Menge">
+                <h:outputText value="#{data.menge}" />
+            </p:column>
+            <p:column headerText="Einheit">
+                <h:outputText value="#{data.einheit}" />
+            </p:column>
+        </p:dataTable>
+
+        Zutatsname: <p:inputText value="#{rezeptController.zutatName}"/>
+        Menge: <p:inputText value="#{rezeptController.zutatMenge}"/>
+        Einheit:
+        <h:selectOneMenu value="#{rezeptController.zutatEinheit}">
+            <f:selectItem noSelectionOption="true" itemLabel="Bitte wählen..." />
+            <f:selectItems value="#{rezeptController.einheiten}" />
+        </h:selectOneMenu>
+        <p:commandButton value="Neue Zutat" action="#{rezeptController.addRezept}" update=":rezeptForm"/>
+
+        <h1>Tags</h1>
+
+        <p:commandButton value="Hinzufügen"/>
+    </h:form>
+</h:body>
+
+</html>
