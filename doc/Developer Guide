@@ -1,0 +1,16 @@
+Um das Projekt bei euch lokal zum laufen zu bringen sind folgende Schritte notwending:
+
+1. Ihr braucht Maven (http://maven.apache.org) und einen Apache Tomcat (http://tomcat.apache.org) [Beides könnt ihr
+Portable ohne Installation verwenden.]
+2. Ihr geht in den Ordner in den euer ausgechecktes Projekt liegt und passt in der src/main/java/META-INF die persistence.xml
+an eure lokale Platte an. Da müsst ihr den Pfad zur SQLite Datenbank angeben.
+3. Nun öffnet ihr die Kommandozeile und führt im Projekt Root einfach "mvn package" aus.
+4. Im Order target liegt nun eine .war Datei, welche die komplette App inkl. Libs ist.
+5. Startet euren Tomcat und fügt die .war über den Manager (http://localhost:8080/manager) hinzu, oder schiebt sie
+direkt in den Tomcat Webapp Ordner. (Neustart des Servers nicht erforderlich)
+
+Wenn das Projekt selber keine Fehler enthält, dann ist die Seite nun über http://localhost:8080/<war name> erreichbar
+
+
+Das ganze ist jetzt noch bissl umständlich. Wenn ihr mir Pfade für eure SQLite DB nennt, dann mache ich das ganze auch direkt
+über Maven :)

@@ -5,13 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- * Created by IntelliJ IDEA.
- * User: 1H37
- * Date: 19.09.11
- * Time: 08:53
- * To change this template use File | Settings | File Templates.
- */
 
 @Entity
 public class Artikel {
