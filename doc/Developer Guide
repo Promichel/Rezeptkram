@@ -5,8 +5,8 @@ Portable ohne Installation verwenden.]
 2. Ihr geht in den Ordner in den euer ausgechecktes Projekt liegt und passt in der src/main/java/META-INF die persistence.xml
 an eure lokale Platte an. Da müsst ihr den Pfad zur SQLite Datenbank angeben.
 3. Nun öffnet ihr die Kommandozeile und führt im Projekt Root einfach "mvn package" aus.
-4. Im Order target liegt nun eine .war Datei, welche die komplette App inkl. Libs ist.
-5. Startet euren Tomcat und fügt die .war über den Manager (http://localhost:8080/manager) hinzu, oder schiebt sie
+4. Im Order target liegt nun eine Rezepte.war Datei, welche die komplette App inkl. Libs ist.
+5. Startet euren Tomcat und fügt die Rezepte.war über den Manager (http://localhost:8080/manager) hinzu, oder schiebt sie
 direkt in den Tomcat Webapp Ordner. (Neustart des Servers nicht erforderlich)
 
 Wenn das Projekt selber keine Fehler enthält, dann ist die Seite nun über http://localhost:8080/<war name> erreichbar

@@ -7,17 +7,18 @@ import java.util.List;
 @Entity
 public class Rezept {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
     private String text;
     private int personenAnzahl;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<RezeptZutat> zutaten;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Tag> tags;
 
     public int getId() {

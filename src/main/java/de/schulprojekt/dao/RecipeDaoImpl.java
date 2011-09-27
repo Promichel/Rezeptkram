@@ -5,12 +5,18 @@ import de.schulprojekt.bean.RecipeSearchBean;
 import de.schulprojekt.entities.Rezept;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
+@Repository(value = "recipeDao")
+@Transactional(propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED, readOnly = true)
 public class RecipeDaoImpl implements RecipeDao {
 
     private Logger logger = LoggerFactory.getLogger(RecipeDaoImpl.class);
@@ -18,6 +24,7 @@ public class RecipeDaoImpl implements RecipeDao {
     @PersistenceContext
     private EntityManager em;
 
+    @Transactional
     public void insertRecipe(Rezept recipe) {
 
         logger.info("Add new Recipe to Database");
@@ -25,6 +32,7 @@ public class RecipeDaoImpl implements RecipeDao {
 
     }
 
+    @Transactional
     public void updateRecipe(Rezept recipe) {
 
         logger.info("Update Recipe with id: " + recipe.getId());
@@ -32,13 +40,17 @@ public class RecipeDaoImpl implements RecipeDao {
 
     }
 
+    @Transactional
     public Rezept selectRecipe(int id) {
 
         logger.info("Select Recipe with id: " + id);
         Query query = em.createQuery("select r from Rezept r where r.id = :id");
         query.setParameter("id", id);
 
-        return (Rezept) query.getSingleResult();
+        Rezept recipe = (Rezept) query.getSingleResult();
+        logger.debug("Recipe has " + recipe.getZutaten().size() + " articles");
+
+        return recipe;
 
     }
 

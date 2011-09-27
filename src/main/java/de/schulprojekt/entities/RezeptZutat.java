@@ -1,17 +1,15 @@
 package de.schulprojekt.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class RezeptZutat {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private int id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Artikel artikel;
 
     private int menge;
