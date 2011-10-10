@@ -11,14 +11,6 @@ import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by IntelliJ IDEA.
- * User: 1H37
- * Date: 19.09.11
- * Time: 08:55
- * To change this template use File | Settings | File Templates.
- */
-
 @ManagedBean
 @SessionScoped
 public class RecipeController {

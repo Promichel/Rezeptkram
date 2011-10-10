@@ -14,13 +14,13 @@
         <profile>
             <id>patrick</id>
             <properties>
-                <sqliteDb>/home/patrick/test/rezepte.db</sqliteDb>
+                <sqliteDb>jdbc:sqlite:/home/patrick/test/rezepte.db</sqliteDb>
             </properties>
         </profile>
         <profile>
             <id>schule</id>
             <properties>
-                <sqliteDb>C:\\Dokumente und Einstellungen\\1H37\\Desktop\\Rezeptkram\\rezepte.db</sqliteDb>
+                <sqliteDb>jdbc:sqlite:C:\\Dokumente und Einstellungen\\1H37\\Desktop\\Rezeptkram\\rezepte.db</sqliteDb>
             </properties>
         </profile>
     </profiles>
@@ -53,6 +53,7 @@
         <javaxpersistence-version>2.0.2</javaxpersistence-version>
         <hibernate-version>3.4.0.GA</hibernate-version>
         <jsf-version>2.0.4-b09</jsf-version>
+        <sqliteDb>jdbc:sqlite:/home/patrick/test/rezepte.db</sqliteDb>
     </properties>
 
     <dependencies>
@@ -167,5 +168,20 @@
     </dependencies>
     <build>
         <finalName>Rezepte</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.xsd</include>
+                    <include>**/*.dtd</include>
+                </includes>
+                <excludes>
+                    <exclude>**/.scc</exclude>
+                </excludes>
+            </resource>
+        </resources>
     </build>
 </project>
