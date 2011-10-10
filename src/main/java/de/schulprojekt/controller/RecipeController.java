@@ -1,11 +1,10 @@
 package de.schulprojekt.controller;
 
 import de.schulprojekt.entities.Artikel;
-import de.schulprojekt.entities.RezeptZutat;
+import de.schulprojekt.entities.RecipeIngredient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
@@ -22,12 +21,12 @@ import java.util.List;
 
 @ManagedBean
 @SessionScoped
-public class RezeptController {
+public class RecipeController {
 
-    private Logger logger = LoggerFactory.getLogger(RezeptController.class);
+    private Logger logger = LoggerFactory.getLogger(RecipeController.class);
 
     private String rezeptName;
-    private List<RezeptZutat> zutaten;
+    private List<RecipeIngredient> zutaten;
     private int personen;
 
     //Zutat Textboxen
@@ -39,10 +38,10 @@ public class RezeptController {
 
     private List<SelectItem> einheiten;
 
-    public RezeptController() {
-        logger.debug("Init RezeptController");
+    public RecipeController() {
+        logger.debug("Init RecipeController");
 
-        zutaten = new ArrayList<RezeptZutat>();
+        zutaten = new ArrayList<RecipeIngredient>();
         einheiten = selectEinheiten();
     }
 
@@ -59,7 +58,7 @@ public class RezeptController {
 
         if(zutatMenge != 0 && zutatName != null && !zutatName.equals("") && zutatEinheit != null && !zutatEinheit.equals("")) {
 
-            RezeptZutat zutat = new RezeptZutat();
+            RecipeIngredient zutat = new RecipeIngredient();
             zutat.setMenge(zutatMenge);
             zutat.setEinheit(zutatEinheit);
             Artikel artikel = new Artikel();
@@ -91,11 +90,11 @@ public class RezeptController {
         this.rezeptName = rezeptName;
     }
 
-    public List<RezeptZutat> getZutaten() {
+    public List<RecipeIngredient> getZutaten() {
         return zutaten;
     }
 
-    public void setZutaten(List<RezeptZutat> zutaten) {
+    public void setZutaten(List<RecipeIngredient> zutaten) {
         this.zutaten = zutaten;
     }
 

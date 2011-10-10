@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Rezept {
+public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class Rezept {
     private int personenAnzahl;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<RezeptZutat> zutaten;
+    private List<RecipeIngredient> zutaten;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Tag> tags;
@@ -45,11 +45,11 @@ public class Rezept {
         this.text = text;
     }
 
-    public List<RezeptZutat> getZutaten() {
+    public List<RecipeIngredient> getZutaten() {
         return zutaten;
     }
 
-    public void setZutaten(List<RezeptZutat> zutaten) {
+    public void setZutaten(List<RecipeIngredient> zutaten) {
         this.zutaten = zutaten;
     }
 

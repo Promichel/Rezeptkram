@@ -46,6 +46,9 @@
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
+    <!-- JSF Controller -->
+    <bean class="de.schulprojekt.controller.RecipeController" scope="session" />
+
     <context:property-placeholder location="classpath:jdbc.properties"/>
 
 

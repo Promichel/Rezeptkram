@@ -2,10 +2,9 @@ package dao;
 
 
 import de.schulprojekt.dao.RecipeDao;
-import de.schulprojekt.dao.RecipeDaoImpl;
 import de.schulprojekt.entities.Artikel;
-import de.schulprojekt.entities.Rezept;
-import de.schulprojekt.entities.RezeptZutat;
+import de.schulprojekt.entities.Recipe;
+import de.schulprojekt.entities.RecipeIngredient;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,16 +29,16 @@ public class RezeptDaoTest {
     @Before
     public void insertRecipe() {
 
-        Rezept recipe = new Rezept();
+        Recipe recipe = new Recipe();
         recipe.setName("Testname");
         recipe.setPersonenAnzahl(4);
 
-        RezeptZutat zutat1 = new RezeptZutat();
+        RecipeIngredient zutat1 = new RecipeIngredient();
 
         Artikel artikel1 = new Artikel();
         artikel1.setName("Wasser");
 
-        List<RezeptZutat> zutaten = new ArrayList<RezeptZutat>();
+        List<RecipeIngredient> zutaten = new ArrayList<RecipeIngredient>();
 
         zutat1.setArtikel(artikel1);
         zutat1.setEinheit("ml");
@@ -54,9 +53,37 @@ public class RezeptDaoTest {
     }
 
     @Test
+    public void updateRecipe() {
+
+        Recipe recipe = dao.selectRecipe(1);
+
+        assertTrue(recipe != null);
+        assertTrue(recipe.getPersonenAnzahl() == 4);
+
+        recipe.setPersonenAnzahl(6);
+
+        dao.updateRecipe(recipe);
+
+        recipe = dao.selectRecipe(1);
+        assertTrue(recipe != null);
+        assertTrue("Personenanzahl ist nun 6", recipe.getPersonenAnzahl() == 4);
+
+    }
+
+    @Test
+    public void deleteRecipe() {
+
+        Recipe recipe = dao.selectRecipe(1);
+        assertTrue(recipe != null);
+
+
+
+    }
+
+    @Test
     public void selectRecipe() {
 
-        Rezept recipe = dao.selectRecipe(1);
+        Recipe recipe = dao.selectRecipe(1);
         assertTrue(recipe != null);
         assertTrue(recipe.getName().equals("Testname"));
         assertTrue(recipe.getPersonenAnzahl() == 4);

@@ -3,7 +3,7 @@ package de.schulprojekt.entities;
 import javax.persistence.*;
 
 @Entity
-public class RezeptZutat {
+public class RecipeIngredient {
 
     @Id
     @GeneratedValue

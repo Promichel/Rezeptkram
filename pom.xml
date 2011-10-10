@@ -17,6 +17,12 @@
                 <sqliteDb>/home/patrick/test/rezepte.db</sqliteDb>
             </properties>
         </profile>
+        <profile>
+            <id>schule</id>
+            <properties>
+                <sqliteDb>C:\\Dokumente und Einstellungen\\1H37\\Desktop\\Rezeptkram\\rezepte.db</sqliteDb>
+            </properties>
+        </profile>
     </profiles>
 
     <!-- Repositories -->
@@ -69,7 +75,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>3.0.RC1-SNAPSHOT</version>
+            <version>3.0.M4-SNAPSHOT</version>
         </dependency>
 
         <!-- JSF 2.0 with Mojarra -->

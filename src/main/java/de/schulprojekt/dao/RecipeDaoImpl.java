@@ -2,7 +2,7 @@ package de.schulprojekt.dao;
 
 
 import de.schulprojekt.bean.RecipeSearchBean;
-import de.schulprojekt.entities.Rezept;
+import de.schulprojekt.entities.Recipe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -25,7 +25,7 @@ public class RecipeDaoImpl implements RecipeDao {
     private EntityManager em;
 
     @Transactional
-    public void insertRecipe(Rezept recipe) {
+    public void insertRecipe(Recipe recipe) {
 
         logger.info("Add new Recipe to Database");
         em.persist(recipe);
@@ -33,28 +33,38 @@ public class RecipeDaoImpl implements RecipeDao {
     }
 
     @Transactional
-    public void updateRecipe(Rezept recipe) {
+    public void updateRecipe(Recipe recipe) {
 
         logger.info("Update Recipe with id: " + recipe.getId());
         em.merge(recipe);
 
     }
 
+    @Override
     @Transactional
-    public Rezept selectRecipe(int id) {
+    public void deleteRecipe(Recipe recipe) {
+
+        logger.info("Delete Recipte with id: " +  recipe.getId());
+        em.merge(recipe);
+        em.remove(recipe);
+
+    }
+
+    @Transactional
+    public Recipe selectRecipe(int id) {
 
         logger.info("Select Recipe with id: " + id);
-        Query query = em.createQuery("select r from Rezept r where r.id = :id");
+        Query query = em.createQuery("select r from Recipe r where r.id = :id");
         query.setParameter("id", id);
 
-        Rezept recipe = (Rezept) query.getSingleResult();
+        Recipe recipe = (Recipe) query.getSingleResult();
         logger.debug("Recipe has " + recipe.getZutaten().size() + " articles");
 
         return recipe;
 
     }
 
-    public List<Rezept> selectRecipes(RecipeSearchBean searchBean) {
+    public List<Recipe> selectRecipes(RecipeSearchBean searchBean) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

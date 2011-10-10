@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
     <title>Rezept hinzufügen</title>
@@ -14,12 +14,12 @@
 <h:body>
     <h:form id="rezeptForm">
         <h1>Rezeptbezeichnung</h1>
-        Titel: <p:inputText value="#{rezeptController.rezeptName}"/>
-        Rezepttext: <p:inputTextarea value="#{rezeptController.rezeptAnleitung}"/>
+        Titel: <p:inputText value="#{recipesController.rezeptName}"/>
+        Rezepttext: <p:inputTextarea value="#{recipesController.rezeptAnleitung}"/>
 
         <h1>Zutat hinzufügen</h1>
         <p:message showDetail="true" />
-        <p:dataTable value="#{rezeptController.zutaten}" var="data">
+        <p:dataTable value="#{recipesController.zutaten}" var="data">
             <p:column headerText="Artikelname">
                 <h:outputText value="#{data.artikel.name}" />
             </p:column>
@@ -31,14 +31,14 @@
             </p:column>
         </p:dataTable>
 
-        Zutatsname: <p:inputText value="#{rezeptController.zutatName}"/>
-        Menge: <p:inputText value="#{rezeptController.zutatMenge}"/>
+        Zutatsname: <p:inputText value="#{recipesController.zutatName}"/>
+        Menge: <p:inputText value="#{recipesController.zutatMenge}"/>
         Einheit:
-        <h:selectOneMenu value="#{rezeptController.zutatEinheit}">
+        <h:selectOneMenu value="#{recipesController.zutatEinheit}">
             <f:selectItem noSelectionOption="true" itemLabel="Bitte wählen..." />
-            <f:selectItems value="#{rezeptController.einheiten}" />
+            <f:selectItems value="#{recipesController.einheiten}" />
         </h:selectOneMenu>
-        <p:commandButton value="Neue Zutat" action="#{rezeptController.addRezept}" update=":rezeptForm"/>
+        <p:commandButton value="Neue Zutat" action="#{recipesController.addRezept}" update=":rezeptForm"/>
 
         <h1>Tags</h1>
 
