@@ -1,6 +1,6 @@
 package de.schulprojekt.controller;
 
-import de.schulprojekt.entities.Artikel;
+import de.schulprojekt.entities.Ingredient;
 import de.schulprojekt.entities.RecipeIngredient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,30 +48,28 @@ public class RecipeController {
 
     public String addRezept() {
 
-        if(zutatMenge != 0 && zutatName != null && !zutatName.equals("") && zutatEinheit != null && !zutatEinheit.equals("")) {
+        if (zutatMenge != 0 && zutatName != null && !zutatName.equals("") && zutatEinheit != null && !zutatEinheit.equals("")) {
 
             RecipeIngredient zutat = new RecipeIngredient();
-            zutat.setMenge(zutatMenge);
-            zutat.setEinheit(zutatEinheit);
-            Artikel artikel = new Artikel();
+            zutat.setAmount(zutatMenge);
+            zutat.setUnit(zutatEinheit);
+            Ingredient artikel = new Ingredient();
             artikel.setName(zutatName);
 
-            zutat.setArtikel(artikel);
+            zutat.setIngredient(artikel);
 
             zutaten.add(zutat);
 
             zutatMenge = 0;
             zutatName = "";
 
-        }
-        else {
+        } else {
             //todo: implement!
-           // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Fehler!", "Bitte füllen Sie alle nötigen Felder aus!"));
+            // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Fehler!", "Bitte füllen Sie alle nötigen Felder aus!"));
         }
 
         return null;
     }
-
 
 
     public String getRezeptName() {

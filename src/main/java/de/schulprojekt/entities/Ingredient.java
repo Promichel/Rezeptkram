@@ -4,9 +4,10 @@ import javax.persistence.*;
 
 
 @Entity
-public class Artikel {
+public class Ingredient {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
@@ -14,7 +15,7 @@ public class Artikel {
 
     @OneToOne
     private Discounter discounter;
-    
+
     public int getId() {
         return id;
     }

@@ -2,7 +2,7 @@ package dao;
 
 
 import de.schulprojekt.dao.RecipeDao;
-import de.schulprojekt.entities.Artikel;
+import de.schulprojekt.entities.Ingredient;
 import de.schulprojekt.entities.Recipe;
 import de.schulprojekt.entities.RecipeIngredient;
 import org.junit.Before;
@@ -31,22 +31,22 @@ public class RezeptDaoTest {
 
         Recipe recipe = new Recipe();
         recipe.setName("Testname");
-        recipe.setPersonenAnzahl(4);
+        recipe.setPersonAmount(4);
 
         RecipeIngredient zutat1 = new RecipeIngredient();
 
-        Artikel artikel1 = new Artikel();
+        Ingredient artikel1 = new Ingredient();
         artikel1.setName("Wasser");
 
         List<RecipeIngredient> zutaten = new ArrayList<RecipeIngredient>();
 
-        zutat1.setArtikel(artikel1);
-        zutat1.setEinheit("ml");
-        zutat1.setMenge(400);
+        zutat1.setIngredient(artikel1);
+        zutat1.setUnit("ml");
+        zutat1.setAmount(400);
 
         zutaten.add(zutat1);
 
-        recipe.setZutaten(zutaten);
+        recipe.setIngredients(zutaten);
 
         dao.insertRecipe(recipe);
 
@@ -58,15 +58,15 @@ public class RezeptDaoTest {
         Recipe recipe = dao.selectRecipe(1);
 
         assertTrue(recipe != null);
-        assertTrue(recipe.getPersonenAnzahl() == 4);
+        assertTrue(recipe.getPersonAmount() == 4);
 
-        recipe.setPersonenAnzahl(6);
+        recipe.setPersonAmount(6);
 
         dao.updateRecipe(recipe);
 
         recipe = dao.selectRecipe(1);
         assertTrue(recipe != null);
-        assertTrue("Personenanzahl ist nun 6", recipe.getPersonenAnzahl() == 4);
+        assertTrue("Personenanzahl ist nun 6", recipe.getPersonAmount() == 4);
 
     }
 
@@ -77,7 +77,6 @@ public class RezeptDaoTest {
         assertTrue(recipe != null);
 
 
-
     }
 
     @Test
@@ -86,8 +85,8 @@ public class RezeptDaoTest {
         Recipe recipe = dao.selectRecipe(1);
         assertTrue(recipe != null);
         assertTrue(recipe.getName().equals("Testname"));
-        assertTrue(recipe.getPersonenAnzahl() == 4);
-        assertTrue(recipe.getZutaten().size() != 0);
+        assertTrue(recipe.getPersonAmount() == 4);
+        assertTrue(recipe.getIngredients().size() != 0);
 
     }
 

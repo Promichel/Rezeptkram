@@ -10,6 +10,7 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/*
 public class ChefkochParser implements IParser {
     private URL url;
     private String recipe;
@@ -155,3 +156,4 @@ public class ChefkochParser implements IParser {
 //		}
 //	}
 }
+*/

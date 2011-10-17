@@ -13,10 +13,10 @@ public class Recipe {
 
     private String name;
     private String text;
-    private int personenAnzahl;
+    private int personAmount;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<RecipeIngredient> zutaten;
+    private List<RecipeIngredient> ingredients;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Tag> tags;
@@ -45,12 +45,12 @@ public class Recipe {
         this.text = text;
     }
 
-    public List<RecipeIngredient> getZutaten() {
-        return zutaten;
+    public List<RecipeIngredient> getIngredients() {
+        return ingredients;
     }
 
-    public void setZutaten(List<RecipeIngredient> zutaten) {
-        this.zutaten = zutaten;
+    public void setIngredients(List<RecipeIngredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public List<Tag> getTags() {
@@ -61,11 +61,11 @@ public class Recipe {
         this.tags = tags;
     }
 
-    public int getPersonenAnzahl() {
-        return personenAnzahl;
+    public int getPersonAmount() {
+        return personAmount;
     }
 
-    public void setPersonenAnzahl(int personenAnzahl) {
-        this.personenAnzahl = personenAnzahl;
+    public void setPersonAmount(int personAmount) {
+        this.personAmount = personAmount;
     }
 }

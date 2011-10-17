@@ -10,10 +10,10 @@ public class RecipeIngredient {
     private int id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Artikel artikel;
+    private Ingredient ingredient;
 
-    private int menge;
-    private String einheit;
+    private int amount;
+    private String unit;
 
     public int getId() {
         return id;
@@ -23,27 +23,27 @@ public class RecipeIngredient {
         this.id = id;
     }
 
-    public Artikel getArtikel() {
-        return artikel;
+    public Ingredient getArtikel() {
+        return ingredient;
     }
 
-    public void setArtikel(Artikel artikel) {
-        this.artikel = artikel;
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
     }
 
-    public int getMenge() {
-        return menge;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setMenge(int menge) {
-        this.menge = menge;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
-    public String getEinheit() {
-        return einheit;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setEinheit(String einheit) {
-        this.einheit = einheit;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

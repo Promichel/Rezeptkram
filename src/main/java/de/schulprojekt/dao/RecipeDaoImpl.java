@@ -40,11 +40,10 @@ public class RecipeDaoImpl implements RecipeDao {
 
     }
 
-    @Override
     @Transactional
     public void deleteRecipe(Recipe recipe) {
 
-        logger.info("Delete Recipte with id: " +  recipe.getId());
+        logger.info("Delete Recipte with id: " + recipe.getId());
         em.merge(recipe);
         em.remove(recipe);
 
@@ -58,7 +57,7 @@ public class RecipeDaoImpl implements RecipeDao {
         query.setParameter("id", id);
 
         Recipe recipe = (Recipe) query.getSingleResult();
-        logger.debug("Recipe has " + recipe.getZutaten().size() + " articles");
+        logger.debug("Recipe has " + recipe.getIngredients().size() + " articles");
 
         return recipe;
 

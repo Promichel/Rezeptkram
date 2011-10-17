@@ -2,7 +2,7 @@ package de.schulprojekt.dao;
 
 import de.schulprojekt.bean.DiscounterSearchBean;
 import de.schulprojekt.bean.IngredientSearchBean;
-import de.schulprojekt.entities.Artikel;
+import de.schulprojekt.entities.Ingredient;
 import de.schulprojekt.entities.Discounter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,11 +60,10 @@ public class IngredientDaoImpl implements IngredientDao {
             Query query = em.createQuery("select d from Discounter d");
             resultList = query.getResultList();
 
-        }
-        catch(NoResultException e) {
+        } catch (NoResultException e) {
             logger.info("No result were found!", e);
         }
-        
+
         return resultList;
     }
 
@@ -74,7 +73,7 @@ public class IngredientDaoImpl implements IngredientDao {
         logger.debug("Select Disconter with Filter");
 
         List<Discounter> discounters = null;
-        
+
         try {
 
             Query query = em.createQuery("select d from Discounter d where (:discounterName is null or d.discounterName = :discounterName)");
@@ -82,8 +81,7 @@ public class IngredientDaoImpl implements IngredientDao {
 
             discounters = query.getResultList();
 
-        }
-        catch(NoResultException e) {
+        } catch (NoResultException e) {
             logger.info("No result were found", e);
         }
 
@@ -92,7 +90,7 @@ public class IngredientDaoImpl implements IngredientDao {
 
     @Override
     @Transactional
-    public void insertIngredient(Artikel ingredient) {
+    public void insertIngredient(Ingredient ingredient) {
 
         logger.info("Insert new Ingredient to Database");
         em.persist(ingredient);
@@ -100,7 +98,7 @@ public class IngredientDaoImpl implements IngredientDao {
     }
 
     @Override
-    public void updateIngredient(Artikel ingredient) {
+    public void updateIngredient(Ingredient ingredient) {
 
         logger.info("Update Ingredient at Database");
         em.merge(ingredient);
@@ -108,17 +106,17 @@ public class IngredientDaoImpl implements IngredientDao {
     }
 
     @Override
-    public Artikel selectIngredient(int id) {
+    public Ingredient selectIngredient(int id) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public List<Artikel> selectIngredients() {
+    public List<Ingredient> selectIngredients() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public List<Artikel> selectIngredients(IngredientSearchBean searchBean) {
+    public List<Ingredient> selectIngredients(IngredientSearchBean searchBean) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }
