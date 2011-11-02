@@ -20,7 +20,7 @@
         <profile>
             <id>schule</id>
             <properties>
-                <sqliteDb>jdbc:sqlite:C:\\Dokumente und Einstellungen\\1H37\\Desktop\\Rezeptkram\\rezepte.db</sqliteDb>
+                <sqliteDb>jdbc:sqlite:%USERPROFILE%Desktop\\Rezeptkram\\rezepte.db</sqliteDb>
             </properties>
         </profile>
     </profiles>
@@ -53,7 +53,7 @@
         <javaxpersistence-version>2.0.2</javaxpersistence-version>
         <hibernate-version>3.4.0.GA</hibernate-version>
         <jsf-version>2.0.4-b09</jsf-version>
-        <sqliteDb>jdbc:sqlite:/home/patrick/test/rezepte.db</sqliteDb>
+        <sqliteDb>jdbc:sqlite:./rezepte.db</sqliteDb>
     </properties>
 
     <dependencies>
@@ -166,6 +166,7 @@
         </dependency>
 
     </dependencies>
+
     <build>
         <finalName>Rezepte</finalName>
         <resources>
@@ -183,5 +184,15 @@
                 </excludes>
             </resource>
         </resources>
+				<plugins>
+					<plugin>
+						 <artifactId>maven-compiler-plugin</artifactId>
+						 <version>2.0.2</version>
+						 <configuration>
+							 <source>1.6</source>
+							 <target>1.6</target>
+						 </configuration>
+					</plugin>
+				</plugins>
     </build>
 </project>

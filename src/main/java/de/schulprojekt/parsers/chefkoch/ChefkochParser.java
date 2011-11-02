@@ -1,3 +1,5 @@
+package de.schulprojekt.parsers.chefkoch;
+
 import de.schulprojekt.model.parser.IParser;
 
 import java.io.IOException;

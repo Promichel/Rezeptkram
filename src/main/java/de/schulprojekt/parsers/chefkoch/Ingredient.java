@@ -1,3 +1,5 @@
+package de.schulprojekt.parsers.chefkoch;
+
 public class Ingredient {
     private String memberOf = null;
     private String type = null;
