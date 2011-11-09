@@ -23,7 +23,7 @@ public class RecipeIngredient {
         this.id = id;
     }
 
-    public Ingredient getArtikel() {
+    public Ingredient getIngredient() {
         return ingredient;
     }
 

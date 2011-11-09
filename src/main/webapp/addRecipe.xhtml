@@ -14,31 +14,31 @@
 <h:body>
     <h:form id="rezeptForm">
         <h1>Rezeptbezeichnung</h1>
-        Titel: <p:inputText value="#{recipesController.rezeptName}"/>
-        Rezepttext: <p:inputTextarea value="#{recipesController.rezeptAnleitung}"/>
+        Titel: <p:inputText value="#{recipeController.rezeptName}"/>
+        Rezepttext: <p:inputTextarea value="#{recipeController.rezeptAnleitung}"/>
 
         <h1>Zutat hinzufügen</h1>
         <p:message showDetail="true" />
-        <p:dataTable value="#{recipesController.zutaten}" var="data">
+        <p:dataTable value="#{recipeController.zutaten}" var="data">
             <p:column headerText="Artikelname">
-                <h:outputText value="#{data.artikel.name}" />
+                <h:outputText value="#{data.ingredient.name}" />
             </p:column>
             <p:column headerText="Menge">
-                <h:outputText value="#{data.menge}" />
+                <h:outputText value="#{data.amount}" />
             </p:column>
             <p:column headerText="Einheit">
-                <h:outputText value="#{data.einheit}" />
+                <h:outputText value="#{data.unit}" />
             </p:column>
         </p:dataTable>
 
-        Zutatsname: <p:inputText value="#{recipesController.zutatName}"/>
-        Menge: <p:inputText value="#{recipesController.zutatMenge}"/>
+        Zutatsname: <p:inputText value="#{recipeController.zutatName}"/>
+        Menge: <p:inputText value="#{recipeController.zutatMenge}"/>
         Einheit:
-        <h:selectOneMenu value="#{recipesController.zutatEinheit}">
+        <h:selectOneMenu value="#{recipeController.zutatEinheit}">
             <f:selectItem noSelectionOption="true" itemLabel="Bitte wählen..." />
-            <f:selectItems value="#{recipesController.einheiten}" />
+            <f:selectItems value="#{recipeController.einheiten}" />
         </h:selectOneMenu>
-        <p:commandButton value="Neue Zutat" action="#{recipesController.addRezept}" update=":rezeptForm"/>
+        <p:commandButton value="Neue Zutat" action="#{recipeController.addRezept}" update=":rezeptForm"/>
 
         <h1>Tags</h1>
 
