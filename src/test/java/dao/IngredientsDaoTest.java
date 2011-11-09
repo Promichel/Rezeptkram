@@ -21,26 +21,32 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
 public class IngredientsDaoTest {
+    public static int inited = 0;
 
     @Autowired
-    IngredientDao dao;
+    private IngredientDao dao;
 
     private Logger logger = LoggerFactory.getLogger(IngredientsDaoTest.class);
 
     @Before
     public void tearUp() {
 
-        logger.debug("Insert Testdata to IngredientDatabase");
-        logger.debug("Create 2 Sample Discounter");
+        //only do once
+        if(inited < 1) {
+	    		logger.debug("Insert Testdata to IngredientDatabase");
+	        logger.debug("Create 2 Sample Discounter");
+	
+	        Discounter disc1 = new Discounter();
+	        disc1.setDiscounterName("Aldi");
+	        Discounter disc2 = new Discounter();
+	        disc2.setDiscounterName("Lidl");
+	
+	        logger.debug("Add created Discounters to Database");
+	        dao.insertDiscounter(disc1);
+	        dao.insertDiscounter(disc2);
+        }
 
-        Discounter disc1 = new Discounter();
-        disc1.setDiscounterName("Aldi");
-        Discounter disc2 = new Discounter();
-        disc2.setDiscounterName("Lidl");
-
-        logger.debug("Add created Discounters to Database");
-        dao.insertDiscounter(disc1);
-        dao.insertDiscounter(disc2);
+        inited++;
 
     }
 

@@ -18,7 +18,7 @@
         Rezepttext: <p:inputTextarea value="#{recipeController.rezeptAnleitung}"/>
 
         <h1>Zutat hinzufügen</h1>
-        <p:message showDetail="true" />
+        <p:messages showDetail="true" />
         <p:dataTable value="#{recipeController.zutaten}" var="data">
             <p:column headerText="Artikelname">
                 <h:outputText value="#{data.ingredient.name}" />

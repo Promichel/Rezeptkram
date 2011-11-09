@@ -28,4 +28,9 @@ public class Discounter {
     public void setDiscounterName(String discounterName) {
         this.discounterName = discounterName;
     }
+    
+    @Override
+    public String toString() {
+    	return "id='" + this.id + "' | name='" + this.discounterName + "'";
+    }
 }

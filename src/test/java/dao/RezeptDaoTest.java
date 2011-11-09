@@ -66,7 +66,7 @@ public class RezeptDaoTest {
 
         recipe = dao.selectRecipe(1);
         assertTrue(recipe != null);
-        assertTrue("Personenanzahl ist nun 6", recipe.getPersonAmount() == 4);
+        assertTrue("Personenanzahl ist nun 6", recipe.getPersonAmount() == 6);
 
     }
 
@@ -85,7 +85,7 @@ public class RezeptDaoTest {
         Recipe recipe = dao.selectRecipe(1);
         assertTrue(recipe != null);
         assertTrue(recipe.getName().equals("Testname"));
-        assertTrue(recipe.getPersonAmount() == 4);
+        assertTrue(recipe.getPersonAmount() == 6);
         assertTrue(recipe.getIngredients().size() != 0);
 
     }
