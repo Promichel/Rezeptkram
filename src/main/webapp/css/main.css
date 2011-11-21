@@ -329,11 +329,11 @@ a:active { color: red; }
 						clear: both;
 						text-indent: -9999px;
 					}
-						.serves-1 { background: url(serves-grid.png) 0px 115px; }
-						.serves-2 { background: url(serves-grid.png) 0px 92px; }
-					    .serves-3 { background: url(serves-grid.png) 0px 69px; }
-						.serves-4 { background: url(serves-grid.png) 0px 46px; }
-						.serves-5 { background: url(serves-grid.png) 0px 23px; }
+						.serves-1 { background: url(../img/serves-grid.png) 0px 115px; }
+						.serves-2 { background: url(../img/serves-grid.png) 0px 92px; }
+					    .serves-3 { background: url(../img/serves-grid.png) 0px 69px; }
+						.serves-4 { background: url(../img/serves-grid.png) 0px 46px; }
+						.serves-5 { background: url(../img/serves-grid.png) 0px 23px; }
 					.timer {
 						background: url(../images/timer.png) no-repeat left;
 						height: 29px;
