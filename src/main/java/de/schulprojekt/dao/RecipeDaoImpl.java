@@ -1,8 +1,12 @@
 package de.schulprojekt.dao;
 
 
-import de.schulprojekt.bean.RecipeSearchBean;
-import de.schulprojekt.entities.Recipe;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -10,10 +14,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import java.util.List;
+import de.schulprojekt.bean.RecipeSearchBean;
+import de.schulprojekt.entities.Recipe;
 
 @Repository(value = "recipeDao")
 @Transactional(propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED, readOnly = true)
@@ -64,7 +66,14 @@ public class RecipeDaoImpl implements RecipeDao {
     }
 
     public List<Recipe> selectRecipes(RecipeSearchBean searchBean) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+
+      logger.info("select Recipe with first: {} and pageSize: {}", new Object[] {searchBean.getFirst(), searchBean.getPageSize()});
+
+      Query query = em.createQuery("select r from Recipe r");
+    	query.setFirstResult(searchBean.getFirst());
+    	query.setMaxResults(searchBean.getPageSize());
+
+    	return (List<Recipe>) query.getResultList();
     }
 
     public int countSelectedRecipes(RecipeSearchBean searchBean) {

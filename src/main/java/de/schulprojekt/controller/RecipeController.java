@@ -1,138 +1,168 @@
 package de.schulprojekt.controller;
 
-import de.schulprojekt.entities.Ingredient;
-import de.schulprojekt.entities.RecipeIngredient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
 
-@ManagedBean
-@SessionScoped
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import de.schulprojekt.dao.RecipeDao;
+import de.schulprojekt.entities.Ingredient;
+import de.schulprojekt.entities.Recipe;
+import de.schulprojekt.entities.RecipeIngredient;
+
 public class RecipeController {
 
-    private Logger logger = LoggerFactory.getLogger(RecipeController.class);
+	@Autowired
+	private RecipeDao dao;
 
-    private String rezeptName;
-    private List<RecipeIngredient> zutaten;
-    private int personen;
+	private Logger logger = LoggerFactory.getLogger(RecipeController.class);
 
-    //Zutat Textboxen
-    private String zutatName;
-    private int zutatMenge;
-    private String zutatEinheit;
+	private String recipeName;
+	private List<RecipeIngredient> ingredients;
+	private int personen;
 
-    private String rezeptAnleitung;
+	// Zutat Textboxen
+	private String ingredientName;
+	private int ingredientAmount;
+	private String ingredientUnit;
 
-    private List<SelectItem> einheiten;
+	private String recipeDescription;
 
-    public RecipeController() {
-        logger.debug("Init RecipeController");
+	private List<SelectItem> units;
 
-        zutaten = new ArrayList<RecipeIngredient>();
-        einheiten = selectEinheiten();
-    }
+	public RecipeController() {
+		logger.debug("Init RecipeController");
 
-    private List<SelectItem> selectEinheiten() {
+		ingredients = new ArrayList<RecipeIngredient>();
+		units = selectUnits();
+	}
 
-        List<SelectItem> zEinheiten = new ArrayList<SelectItem>();
-        zEinheiten.add(new SelectItem("l", "Liter"));
-        zEinheiten.add(new SelectItem("ml", "Milliliter"));
+	private List<SelectItem> selectUnits() {
 
-        return zEinheiten;
-    }
+		List<SelectItem> zUnits = new ArrayList<SelectItem>();
+		zUnits.add(new SelectItem("l", "Liter"));
+		zUnits.add(new SelectItem("ml", "Milliliter"));
 
-    public String addRezept() {
+		return zUnits;
+	}
 
-        if (zutatMenge != 0 && zutatName != null && !zutatName.equals("") && zutatEinheit != null && !zutatEinheit.equals("")) {
+	public String addRecipe() {
+		try {
+			Recipe recipe = new Recipe();
+			recipe.setName(recipeName);
+			recipe.setText(recipeDescription);
+			recipe.setPersonAmount(personen);
+			recipe.setIngredients(ingredients);
+			dao.insertRecipe(recipe);
+			FacesContext.getCurrentInstance().addMessage(null, new
+				FacesMessage(FacesMessage.SEVERITY_INFO, "", "Das Rezept wurde hinzugefügt")
+			);
+		} catch(Exception e) {
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, new
+				FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler!", "Beim Hinzufügen des Rezepts ist ein Fehler aufgetreten!")
+			);
+		}
 
-            RecipeIngredient zutat = new RecipeIngredient();
-            zutat.setAmount(zutatMenge);
-            zutat.setUnit(zutatEinheit);
-            Ingredient artikel = new Ingredient();
-            artikel.setName(zutatName);
+		return null;
+	}
 
-            zutat.setIngredient(artikel);
+	public String addIngredient() {
 
-            zutaten.add(zutat);
+		if (ingredientAmount != 0 && ingredientName != null && !ingredientName.equals("")
+				&& ingredientUnit != null && !ingredientUnit.equals("")) {
 
-            zutatMenge = 0;
-            zutatName = "";
+			RecipeIngredient ingredient = new RecipeIngredient();
+			ingredient.setAmount(ingredientAmount);
+			ingredient.setUnit(ingredientUnit);
 
-        } else {
-            //todo: implement!
-            // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Fehler!", "Bitte füllen Sie alle nötigen Felder aus!"));
-        }
+			Ingredient article = new Ingredient();
+			article.setName(ingredientName);
 
-        return null;
-    }
+			ingredient.setIngredient(article);
 
+			ingredients.add(ingredient);
 
-    public String getRezeptName() {
-        return rezeptName;
-    }
+			ingredientAmount = 0;
+			ingredientName = "";
 
-    public void setRezeptName(String rezeptName) {
-        this.rezeptName = rezeptName;
-    }
+		} else {
+			// todo: implement!
+			FacesContext.getCurrentInstance().addMessage(null, new
+				FacesMessage(FacesMessage.SEVERITY_ERROR, "Fehler!", "Bitte füllen Sie alle nötigen Felder aus!")
+			);
+		}
 
-    public List<RecipeIngredient> getZutaten() {
-        return zutaten;
-    }
+		return null;
+	}
 
-    public void setZutaten(List<RecipeIngredient> zutaten) {
-        this.zutaten = zutaten;
-    }
+	public String getRecipeName() {
+		return recipeName;
+	}
 
-    public String getZutatName() {
-        return zutatName;
-    }
+	public void setRecipeName(String recipeName) {
+		this.recipeName = recipeName;
+	}
 
-    public void setZutatName(String zutatName) {
-        this.zutatName = zutatName;
-    }
+	public List<RecipeIngredient> getIngredients() {
+		return ingredients;
+	}
 
-    public int getZutatMenge() {
-        return zutatMenge;
-    }
+	public void setIngredients(List<RecipeIngredient> ingredients) {
+		this.ingredients = ingredients;
+	}
 
-    public void setZutatMenge(int zutatMenge) {
-        this.zutatMenge = zutatMenge;
-    }
+	public String getIngredientName() {
+		return ingredientName;
+	}
 
-    public String getRezeptAnleitung() {
-        return rezeptAnleitung;
-    }
+	public void setIngredientName(String ingredientName) {
+		this.ingredientName = ingredientName;
+	}
 
-    public void setRezeptAnleitung(String rezeptAnleitung) {
-        this.rezeptAnleitung = rezeptAnleitung;
-    }
+	public int getIngredientAmount() {
+		return this.ingredientAmount;
+	}
 
-    public int getPersonen() {
-        return personen;
-    }
+	public void setIngredientAmount(int ingredientAmount) {
+		this.ingredientAmount = ingredientAmount;
+	}
 
-    public void setPersonen(int personen) {
-        this.personen = personen;
-    }
+	public String getRecipeDescription() {
+		return recipeDescription;
+	}
 
-    public String getZutatEinheit() {
-        return zutatEinheit;
-    }
+	public void setRecipeDescription(String recipeDescription) {
+		this.recipeDescription = recipeDescription;
+	}
 
-    public void setZutatEinheit(String zutatEinheit) {
-        this.zutatEinheit = zutatEinheit;
-    }
+	public int getPersonen() {
+		return personen;
+	}
 
-    public List<SelectItem> getEinheiten() {
-        return einheiten;
-    }
+	public void setPersonen(int personen) {
+		this.personen = personen;
+	}
 
-    public void setEinheiten(List<SelectItem> einheiten) {
-        this.einheiten = einheiten;
-    }
+	public String getIngredientUnit() {
+		return ingredientUnit;
+	}
+
+	public void setIngredientUnit(String ingredientUnit) {
+		this.ingredientUnit = ingredientUnit;
+	}
+
+	public List<SelectItem> getUnits() {
+		return units;
+	}
+
+	public void setUnits(List<SelectItem> units) {
+		this.units = units;
+	}
 }

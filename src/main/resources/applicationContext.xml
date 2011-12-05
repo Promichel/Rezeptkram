@@ -49,6 +49,7 @@
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
     <!-- JSF Controller -->
-    <bean class="de.schulprojekt.controller.RecipeController" scope="session" />
+    <bean id="addRecipe" class="de.schulprojekt.controller.RecipeController" scope="session" />
+    <bean id="listRecipe" class="de.schulprojekt.controller.RecipeListController" scope="request" />
 
 </beans>

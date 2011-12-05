@@ -12,14 +12,14 @@
 </h:head>
 
 <h:body>
-    <h:form id="rezeptForm">
+    <h:form id="recipeForm">
         <h1>Rezeptbezeichnung</h1>
-        Titel: <p:inputText value="#{recipeController.rezeptName}"/>
-        Rezepttext: <p:inputTextarea value="#{recipeController.rezeptAnleitung}"/>
+        Titel: <p:inputText value="#{addRecipe.recipeName}" />
+        Rezepttext: <p:inputTextarea value="#{addRecipe.recipeDescription}" />
 
         <h1>Zutat hinzufügen</h1>
         <p:messages showDetail="true" />
-        <p:dataTable value="#{recipeController.zutaten}" var="data">
+        <p:dataTable value="#{addRecipe.ingredients}" var="data">
             <p:column headerText="Artikelname">
                 <h:outputText value="#{data.ingredient.name}" />
             </p:column>
@@ -31,18 +31,18 @@
             </p:column>
         </p:dataTable>
 
-        Zutatsname: <p:inputText value="#{recipeController.zutatName}"/>
-        Menge: <p:inputText value="#{recipeController.zutatMenge}"/>
+        Zutatsname: <p:inputText value="#{addRecipe.ingredientName}" />
+        Menge: <p:inputText value="#{addRecipe.ingredientAmount}" />
         Einheit:
-        <h:selectOneMenu value="#{recipeController.zutatEinheit}">
+        <h:selectOneMenu value="#{addRecipe.ingredientUnit}">
             <f:selectItem noSelectionOption="true" itemLabel="Bitte wählen..." />
-            <f:selectItems value="#{recipeController.einheiten}" />
+            <f:selectItems value="#{addRecipe.units}" />
         </h:selectOneMenu>
-        <p:commandButton value="Neue Zutat" action="#{recipeController.addRezept}" update=":rezeptForm"/>
+        <p:commandButton value="Neue Zutat" action="#{addRecipe.addIngredient}" update=":recipeForm" />
 
         <h1>Tags</h1>
 
-        <p:commandButton value="Hinzufügen"/>
+        <p:commandButton value="Hinzufügen" action="#{addRecipe.addRecipe}" update=":recipeForm" />
     </h:form>
 </h:body>
 
