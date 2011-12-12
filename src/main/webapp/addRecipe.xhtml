@@ -19,7 +19,7 @@
 
         <h1>Zutat hinzufügen</h1>
         <p:messages showDetail="true" />
-        <p:dataTable value="#{recipeController.zutaten}" var="data">
+        <p:dataTable value="#{recipeController.ingredients}" var="data">
             <p:column headerText="Artikelname">
                 <h:outputText value="#{data.ingredient.name}" />
             </p:column>
@@ -31,10 +31,10 @@
             </p:column>
         </p:dataTable>
 
-        Zutatsname: <p:inputText value="#{recipeController.zutatName}"/>
-        Menge: <p:inputText value="#{recipeController.zutatMenge}"/>
+        Zutatsname: <p:inputText value="#{recipeController.ingredientName}"/>
+        Menge: <p:inputText value="#{recipeController.nOfIngredients}"/>
         Einheit:
-        <h:selectOneMenu value="#{recipeController.zutatEinheit}">
+        <h:selectOneMenu value="#{recipeController.ingredientUnit}">
             <f:selectItem noSelectionOption="true" itemLabel="Bitte wählen..." />
             <f:selectItems value="#{recipeController.einheiten}" />
         </h:selectOneMenu>

@@ -12,8 +12,9 @@ public class RecipeIngredient {
     @OneToOne(cascade = CascadeType.ALL)
     private Ingredient ingredient;
 
-    private int amount;
+    private float amount;
     private String unit;
+    private String memberOf = null;
 
     public int getId() {
         return id;
@@ -31,11 +32,11 @@ public class RecipeIngredient {
         this.ingredient = ingredient;
     }
 
-    public int getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
@@ -45,5 +46,13 @@ public class RecipeIngredient {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public void setMemberOf(String memberOf) {
+        this.memberOf = memberOf;
+    }
+    
+    public String getMemberOf() {
+        return this.memberOf;
     }
 }

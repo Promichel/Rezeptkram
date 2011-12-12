@@ -1,7 +1,7 @@
 package de.schulprojekt.parsers.chefkoch;
 
 import de.schulprojekt.bean.parser.ParserParameterBean;
-import de.schulprojekt.entities.Artikel;
+import de.schulprojekt.entities.Ingredient;
 import de.schulprojekt.entities.Recipe;
 import de.schulprojekt.entities.RecipeIngredient;
 import de.schulprojekt.model.parser.IParser;
@@ -24,22 +24,22 @@ public class ChefkochParser implements IParser {
 	private String title;
 	private int nOfPortions;
 
-	private static Pattern portionPattern = Pattern
+	private final static Pattern portionPattern = Pattern
 			.compile(
 					"<h2 class=\"line\">.*?"
 							+ "<strong>Zutaten für </strong><input name=\"divisor\" size=\"\\d\""
 							+ ".*?value=\"(\\d)\" style=\".*?\".*?type=\"text\"><strong> Portionen</strong>"
 							+ ".*?<input src=\".*?\" align=\"\\w*\" border=\"\\d\" type=\"image\">.*?</h2>",
 					Pattern.DOTALL);
-	private static Pattern titlePattern = Pattern.compile(
+	private final static Pattern titlePattern = Pattern.compile(
 			"<h1 class=\"big\" style=\"margin-bottom: 0px;\">(.*?)</h1>",
 			Pattern.DOTALL);
-	private static Pattern tablePattern = Pattern.compile("(<table class=\"zutaten\">)(.*?)"
+	private final static Pattern tablePattern = Pattern.compile("(<table class=\"zutaten\">)(.*?)"
 			+ "(</table>)", Pattern.DOTALL);
-	private static Pattern formulationPattern = Pattern.compile(
+	private final static Pattern formulationPattern = Pattern.compile(
 			"(<div id=\"rezept-zubereitung\".*?>)(.*?)(</div>?)",
 			Pattern.DOTALL);
-	private static Pattern tableRowPattern = Pattern.compile("(<tr>)(.*?)(</tr>)",
+	private final static Pattern tableRowPattern = Pattern.compile("(<tr>)(.*?)(</tr>)",
 			Pattern.DOTALL);
 
 	public ChefkochParser() {
@@ -113,7 +113,7 @@ public class ChefkochParser implements IParser {
 						if (token.contains("<")) {
 							text = false;
 						}
-						if (text == true) {
+						if (text) {
 							if (token.contains("&nbsp;")) {
 								Matcher match = Pattern.compile(
 										"(.*?)&nbsp;(.*)").matcher(token);
@@ -132,22 +132,21 @@ public class ChefkochParser implements IParser {
 						}
 					}
 					RecipeIngredient recipeIngredient = new RecipeIngredient();
-					Artikel artikel = new Artikel();
-					artikel.setName(ingredient);
-					recipeIngredient.setArtikel(artikel);
-					recipeIngredient.setEinheit(unit);
+					Ingredient article = new Ingredient();
+					article.setName(ingredient);
+					recipeIngredient.setIngredient(article);
+					recipeIngredient.setUnit(unit);
 					recipeIngredient.setMemberOf(header);
-					recipeIngredient.setMenge(this
-							.getDoubleFromQuantity(quantity));
+					recipeIngredient.setAmount(this.getFloatFromQuantity(quantity));
 					ingredients.add(recipeIngredient);
 				}
 			}
 		}
 	}
 
-	private double getDoubleFromQuantity(String quantity) {
+	private float getFloatFromQuantity(String quantity) {
 		Integer number = Integer.parseInt(quantity);
-		return number.doubleValue();
+		return number.floatValue();
 	}
 
 	private void parseURL(String content) {
@@ -156,7 +155,7 @@ public class ChefkochParser implements IParser {
 		this.parseNOfPortions(content);
 	}
 
-	public void setURL(String url) {
+	private void setURL(String url) {
 		try {
 			this.url = new URL(url);
 		} catch (MalformedURLException e) {
@@ -165,11 +164,11 @@ public class ChefkochParser implements IParser {
 		this.readURL();
 	}
 
-	public String getRecipe() {
+	private String getRecipe() {
 		return this.recipe;
 	}
 
-	public List<RecipeIngredient> getIngredients() {
+	private List<RecipeIngredient> getIngredients() {
 		return this.ingredients;
 	}
 
@@ -187,9 +186,9 @@ public class ChefkochParser implements IParser {
 		this.setURL(parameterBean.toString());
 		Recipe recipe = new Recipe();
 		recipe.setName(this.title);
-		recipe.setText(this.recipe);
-		recipe.setZutaten(this.ingredients);
-		recipe.setPersonenAnzahl(this.nOfPortions);
+		recipe.setText(this.getRecipe());
+		recipe.setIngredients(this.getIngredients());
+		recipe.setPersonAmount(this.nOfPortions);
 
 		/**
 		 * @author Stefan
@@ -198,7 +197,7 @@ public class ChefkochParser implements IParser {
 		// System.out.println(recipe.getName());
 		// System.out.println(recipe.getText());
 		// System.out.println(recipe.getPersonenAnzahl());
-		// for (RecipeIngredient ingredient : recipe.getZutaten()) {
+		// for (RecipeIngredient ingredient : recipe.getIngredients()) {
 		// System.out.println(ingredient.getArtikel().getName());
 		// System.out.println(ingredient.getEinheit());
 		// System.out.println(ingredient.getMenge());

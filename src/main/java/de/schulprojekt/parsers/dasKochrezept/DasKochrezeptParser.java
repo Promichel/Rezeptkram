@@ -1,7 +1,7 @@
 package de.schulprojekt.parsers.dasKochrezept;
 
 import de.schulprojekt.bean.parser.ParserParameterBean;
-import de.schulprojekt.entities.Artikel;
+import de.schulprojekt.entities.Ingredient;
 import de.schulprojekt.entities.Recipe;
 import de.schulprojekt.entities.RecipeIngredient;
 import de.schulprojekt.model.parser.IParser;
@@ -123,21 +123,20 @@ public class DasKochrezeptParser implements IParser {
 				Matcher rowMatcher = rowPattern.matcher(tableMatcher.group(1));
 				if (rowMatcher.find()) {
 					RecipeIngredient recipeIngredient = new RecipeIngredient();
-					Artikel artikel = new Artikel();
-					artikel.setName(removeHtmlTags(rowMatcher.group(3).trim())
-							.trim());
-					recipeIngredient.setArtikel(artikel);
-					recipeIngredient.setEinheit(rowMatcher.group(2).trim());
+					Ingredient article = new Ingredient();
+					article.setName(removeHtmlTags(rowMatcher.group(3).trim())
+                            .trim());
+					recipeIngredient.setIngredient(article);
+					recipeIngredient.setUnit(rowMatcher.group(2).trim());
 					recipeIngredient.setMemberOf(header);
-					recipeIngredient.setMenge(this
-							.getDoubleFromQuantity(rowMatcher.group(1).trim()));
+					recipeIngredient.setAmount(this.getFloatFromQuantity(rowMatcher.group(1).trim()));
 					ingredients.add(recipeIngredient);
 				}
 			}
 		}
 	}
 
-	private double getDoubleFromQuantity(String quantity) {
+	private float getFloatFromQuantity(String quantity) {
 
 		Pattern numberPattern = Pattern.compile("(\\d)/(\\d)");
 		Matcher numberMatcher = numberPattern.matcher(quantity);
@@ -150,7 +149,7 @@ public class DasKochrezeptParser implements IParser {
 			return 0;
 		}
 		Integer number = Integer.parseInt(quantity);
-		return number.doubleValue();
+		return number.floatValue();
 	}
 
 	private void parseURL(String content) {
@@ -174,7 +173,7 @@ public class DasKochrezeptParser implements IParser {
 		}
 	}
 
-	public void setURL(String url) {
+	private void setURL(String url) {
 		try {
 			this.url = new URL(url);
 		} catch (MalformedURLException e) {
@@ -183,11 +182,11 @@ public class DasKochrezeptParser implements IParser {
 		this.readURL();
 	}
 
-	public String getRecipe() {
+	private String getRecipe() {
 		return this.recipe;
 	}
 
-	public List<RecipeIngredient> getIngredients() {
+	private List<RecipeIngredient> getIngredients() {
 		return this.ingredients;
 	}
 
@@ -196,9 +195,9 @@ public class DasKochrezeptParser implements IParser {
 		this.setURL(parameterBean.toString());
 		Recipe recipe = new Recipe();
 		recipe.setName(this.title);
-		recipe.setText(this.recipe);
-		recipe.setZutaten(this.ingredients);
-		recipe.setPersonenAnzahl(this.nOfPortions);
+		recipe.setText(this.getRecipe());
+		recipe.setIngredients(this.getIngredients());
+		recipe.setPersonAmount(this.nOfPortions);
 
 
 		/** @author Stefan 
@@ -210,7 +209,7 @@ public class DasKochrezeptParser implements IParser {
 		//
 		// System.out.println("Zutaten:");
 		//
-		// for (RecipeIngredient ingredient : recipe.getZutaten()) {
+		// for (RecipeIngredient ingredient : recipe.getIngredients()) {
 		// System.out.println(ingredient.getArtikel().getName());
 		// System.out.println(ingredient.getEinheit());
 		// System.out.println(ingredient.getMenge());
