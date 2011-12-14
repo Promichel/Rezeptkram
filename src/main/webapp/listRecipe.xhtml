@@ -1,35 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
+<!DOCTYPE composition
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" template="inc/template.xhtml">
 
-<h:head>
-    <title>Rezeptliste</title>
-</h:head>
+    <ui:define name="title">Rezeptübersicht</ui:define>
 
-<h:body>
-    <h:form id="listRecipeForm">
-        <h1>Rezeptliste</h1>
-        <p:dataTable value="#{listRecipe.recipes}" var="data"
-                     lazy="true" rows="10" paginator="true"
-                     emptyMessage="Keine Rezepte gefunden">
-            <p:column headerText="Rezeptname">
-                <h:outputText value="#{data.name}"/>
-            </p:column>
-            <p:column headerText="Personzahl">
-                <h:outputText value="#{data.personAmount}"/>
-            </p:column>
-            <!--
-            <p:column headerText="Anzahl Zutaten">
-                <h:outputText value="#{data.ingredientsCount}" />
-            </p:column>
-            -->
-        </p:dataTable>
-    </h:form>
-</h:body>
+    <ui:define name="sitename">
+        Rezeptübersicht
+    </ui:define>
 
-</html>
+    <ui:define name="content">
+        <h:form id="listRecipeForm">
+            <div class="span9">
+                <p:dataTable value="#{listRecipe.recipes}" var="data"
+                             lazy="true" rows="10" paginator="true" paginatorPosition="bottom"
+                             emptyMessage="Keine Rezepte gefunden">
+                    <p:column headerText="Rezeptname">
+                        <h:outputText value="#{data.name}"/>
+                    </p:column>
+                    <p:column headerText="Personzahl">
+                        <h:outputText value="#{data.personAmount}"/>
+                    </p:column>
+                    <!--
+                    <p:column headerText="Anzahl Zutaten">
+                        <h:outputText value="#{data.ingredientsCount}" />
+                    </p:column>
+                    -->
+                </p:dataTable>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

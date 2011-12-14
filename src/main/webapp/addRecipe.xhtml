@@ -1,50 +1,85 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
+<!DOCTYPE composition
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" template="inc/template.xhtml">
 
-<h:head>
-    <title>Rezept hinzufügen</title>
-</h:head>
+    <ui:define name="title">Rezept hinzufügen</ui:define>
 
-<h:body>
-    <h:form id="recipeForm">
-        <h1>Rezeptbezeichnung</h1>
-        Titel: <p:inputText value="#{addRecipe.rab.name}"/>
-        Rezepttext: <p:inputTextarea value="#{addRecipe.rab.description}"/>
+    <ui:define name="sitename">1. Rezeptinformationen</ui:define>
 
-        <h1>Zutat hinzufügen</h1>
-        <p:messages showDetail="true"/>
-        <p:dataTable value="#{addRecipe.rab.ingredients}" var="data">
-            <p:column headerText="Artikelname">
-                <h:outputText value="#{data.ingredient.name}"/>
-            </p:column>
-            <p:column headerText="Menge">
-                <h:outputText value="#{data.amount}"/>
-            </p:column>
-            <p:column headerText="Einheit">
-                <h:outputText value="#{data.unit}"/>
-            </p:column>
-        </p:dataTable>
+    <ui:define name="content">
+        <h:form id="messageForm" prependId="false" styleClass="form-stacked">
+            <h:messages id="errorMessage" showDetail="true" styleClass="alert-message error"/>
+        </h:form>
 
-        Zutatsname: <p:inputText value="#{addRecipe.rab.ingredientName}"/>
-        Menge: <p:inputText value="#{addRecipe.rab.ingredientAmount}"/>
-        Einheit:
-        <h:selectOneMenu value="#{addRecipe.rab.ingredientUnit}">
-            <f:selectItem noSelectionOption="true" itemLabel="Bitte wählen..."/>
-            <f:selectItems value="#{addRecipe.units}"/>
-        </h:selectOneMenu>
-        <p:commandButton value="Neue Zutat" action="#{addRecipe.addIngredient}" update=":recipeForm"/>
+        <h:form id="recipeForm" styleClass="form-stacked">
+            <div class="row clearfix">
+                <div class="span9">
+                    <label>Titel</label>
+                    <p:inputText styleClass="span8" value="#{addRecipe.rab.name}"/>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="span9">
+                    <label>Rezepttext</label>
+                    <p:inputTextarea styleClass="span9" value="#{addRecipe.rab.description}"/>
+                </div>
+            </div>
+        </h:form>
 
-        <h1>Tags</h1>
+        <h2>2. Zutaten hinzufügen</h2>
+        <h:form id="ingredientForm" styleClass="form-stacked">
+            <div class="span9">
 
-        <p:commandButton value="Hinzufügen" action="#{addRecipe.addRecipe}" update=":recipeForm"/>
-    </h:form>
-</h:body>
+                <p:dataTable value="#{addRecipe.rab.ingredients}" var="data">
+                    <p:column headerText="Artikelname">
+                        <h:outputText value="#{data.ingredient.name}"/>
+                    </p:column>
+                    <p:column headerText="Menge">
+                        <h:outputText value="#{data.amount}"/>
+                    </p:column>
+                    <p:column headerText="Einheit">
+                        <h:outputText value="#{data.unit}"/>
+                    </p:column>
+                </p:dataTable>
 
-</html>
+                <div class="row clearfix">
+                    <div class="span8">
+                        <label>Zutatenname</label>
+                        <p:inputText value="#{addRecipe.rab.ingredientName}" styleClass="span8"/>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="span3">
+                        <label>Menge</label>
+                        <p:inputText value="#{addRecipe.rab.ingredientAmount}" styleClass="span3"/>
+                    </div>
+                    <div class="span5">
+                        <label>Einheit</label>
+                        <h:selectOneMenu value="#{addRecipe.rab.ingredientUnit}">
+                            <f:selectItem noSelectionOption="true" itemLabel="Bitte wählen..."/>
+                            <f:selectItems value="#{addRecipe.units}"/>
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+
+                <p:commandButton value="Zutat hinzufügen" action="#{addRecipe.addIngredient}"
+                                 update=":ingredientForm :messageForm" styleClass="btn span3"/>
+            </div>
+        </h:form>
+
+        <h2>3. Zur Datenbank hinzufügen</h2>
+        <h:form id="submitForm" prependId="false">
+            <div class="span8">
+                <p:commandButton value="Hinzufügen" action="#{addRecipe.addRecipe}"
+                                 update=":recipeForm :ingredientForm :messageForm" styleClass="btn success span3"/>
+            </div>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

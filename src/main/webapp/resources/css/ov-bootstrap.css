@@ -80,3 +80,8 @@ body {
 .serves-5 {
     background: url(../img/serves-grid.png) 0px 23px;
 }
+
+#errorMessage > li {
+    color: #FFF;
+    font-weight: bold;
+}
