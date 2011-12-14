@@ -12,13 +12,7 @@
 
         <!-- Developer Profile (Patrick) -->
         <profile>
-            <id>patrick</id>
-            <properties>
-                <sqliteDb>jdbc:sqlite:/home/patrick/test/rezepte.db</sqliteDb>
-            </properties>
-        </profile>
-        <profile>
-            <id>schule</id>
+            <id>windows</id>
             <properties>
                 <sqliteDb>jdbc:sqlite:${user.home}${file.separator}Desktop${file.separator}rezepte.db</sqliteDb>
             </properties>
