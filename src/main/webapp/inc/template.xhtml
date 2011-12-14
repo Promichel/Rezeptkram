@@ -4,17 +4,50 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>Rezeptkram - <ui:insert name="title">Hauptseite</ui:insert></title>
-    <h:outputStylesheet library="css" name="bootstrap.css" />
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <f:facet name="last">
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet library="css" name="ov-bootstrap.css"/>
+    </f:facet>
+
 </h:head>
 
 <h:body>
-    <ui:include src="menu.xhtml" />
 
-    <ui:insert name="content" />
+    <ui:include src="menu.xhtml"/>
+
+    <div class="container">
+
+        <div class="content">
+            <div class="page-header">
+                <h1>Übersicht</h1>
+            </div>
+            <div class="row">
+                <div class="span10">
+                    <h2><ui:insert name="sitename"/></h2>
+                    <ui:insert name="content"/>
+                </div>
+                <div class="span4">
+                    <h3>Hier kommt die Sidebar rein</h3>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; by Patrick T., Stefan R., Ralf S. 2011</p>
+        </footer>
+
+    </div>
 </h:body>
 
 </html>
