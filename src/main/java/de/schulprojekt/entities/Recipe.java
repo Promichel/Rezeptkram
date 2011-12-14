@@ -68,4 +68,10 @@ public class Recipe {
     public void setPersonAmount(int personAmount) {
         this.personAmount = personAmount;
     }
+
+    @Override
+    public String toString() {
+        return "Recipe [id=" + id + ", name=" + name + ", text=" + text + ", personAmount=" + personAmount + ", ingredients=" + ingredients + ", tags=" + tags + "]";
+    }
+
 }

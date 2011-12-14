@@ -64,7 +64,14 @@ public class RecipeDaoImpl implements RecipeDao {
     }
 
     public List<Recipe> selectRecipes(RecipeSearchBean searchBean) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+
+        logger.info("select Recipe with first: {} and pageSize: {}", new Object[]{searchBean.getFirst(), searchBean.getPageSize()});
+
+        Query query = em.createQuery("select r from Recipe r");
+        query.setFirstResult(searchBean.getFirst());
+        query.setMaxResults(searchBean.getPageSize());
+
+        return (List<Recipe>) query.getResultList();
     }
 
     public int countSelectedRecipes(RecipeSearchBean searchBean) {
