@@ -13,4 +13,12 @@
         </locale-config>
     </application>
 
+    <render-kit>
+        <renderer>
+            <component-family>javax.faces.Input</component-family>
+            <renderer-type>javax.faces.Text</renderer-type>
+            <renderer-class>de.schulprojekt.services.jsf.InputRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+
 </faces-config>
