@@ -46,4 +46,10 @@ public class RecipeIngredient {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
+		@Override
+		public String toString() {
+			return "RecipeIngredient [id=" + id + ", ingredient=" + ingredient + ", amount=" + amount + ", unit=" + unit + "]";
+		}
+
 }

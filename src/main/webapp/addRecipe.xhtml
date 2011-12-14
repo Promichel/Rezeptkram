@@ -5,7 +5,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <title>Rezept hinzufügen</title>
@@ -14,12 +15,12 @@
 <h:body>
     <h:form id="recipeForm">
         <h1>Rezeptbezeichnung</h1>
-        Titel: <p:inputText value="#{addRecipe.recipeName}" />
-        Rezepttext: <p:inputTextarea value="#{addRecipe.recipeDescription}" />
+        Titel: <p:inputText value="#{addRecipe.rab.name}" />
+        Rezepttext: <p:inputTextarea value="#{addRecipe.rab.description}" />
 
         <h1>Zutat hinzufügen</h1>
         <p:messages showDetail="true" />
-        <p:dataTable value="#{addRecipe.ingredients}" var="data">
+        <p:dataTable value="#{addRecipe.rab.ingredients}" var="data">
             <p:column headerText="Artikelname">
                 <h:outputText value="#{data.ingredient.name}" />
             </p:column>
@@ -31,10 +32,10 @@
             </p:column>
         </p:dataTable>
 
-        Zutatsname: <p:inputText value="#{addRecipe.ingredientName}" />
-        Menge: <p:inputText value="#{addRecipe.ingredientAmount}" />
+        Zutatsname: <p:inputText value="#{addRecipe.rab.ingredientName}" />
+        Menge: <p:inputText value="#{addRecipe.rab.ingredientAmount}" />
         Einheit:
-        <h:selectOneMenu value="#{addRecipe.ingredientUnit}">
+        <h:selectOneMenu value="#{addRecipe.rab.ingredientUnit}">
             <f:selectItem noSelectionOption="true" itemLabel="Bitte wählen..." />
             <f:selectItems value="#{addRecipe.units}" />
         </h:selectOneMenu>
