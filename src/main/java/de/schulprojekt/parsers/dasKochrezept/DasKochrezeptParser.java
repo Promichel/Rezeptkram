@@ -156,6 +156,7 @@ public class DasKochrezeptParser implements IParser {
 		this.parseFormulation(content);
 		this.parseIngredients(content);
 		this.parseNOfPortions(content);
+        this.parseTitle(content);
 	}
 
 	private void parseNOfPortions(String content) {
@@ -191,8 +192,8 @@ public class DasKochrezeptParser implements IParser {
 	}
 
 	@Override
-	public Recipe fetchRecipe(ParserParameterBean parameterBean) {
-		this.setURL(parameterBean.toString());
+    public Recipe fetchRecipe(String link) {
+   		this.setURL(link);
 		Recipe recipe = new Recipe();
 		recipe.setName(this.title);
 		recipe.setText(this.getRecipe());
