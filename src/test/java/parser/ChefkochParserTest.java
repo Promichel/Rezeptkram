@@ -37,7 +37,7 @@ public class ChefkochParserTest {
         for (int i = 0, size = recipe.getIngredients().size(); i  < size; ++i)
         {
             assertTrue(expectedIngredients.get(i).equals(recipe.getIngredients().get(i).getIngredient().getName()));
-            assertTrue(expectedMemberOf.get(i).equals(recipe.getIngredients().get(i).getMemberOf()));
+            assertTrue(expectedMemberOf.get(i) == recipe.getIngredients().get(i).getMemberOf());
             assertTrue(expectedAmount.get(i) == recipe.getIngredients().get(i).getAmount());
             assertTrue(expectedUnit.get(i).equals(recipe.getIngredients().get(i).getUnit()));
         }

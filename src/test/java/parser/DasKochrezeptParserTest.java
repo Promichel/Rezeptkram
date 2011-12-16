@@ -44,7 +44,7 @@ public class DasKochrezeptParserTest {
             else
             {
                 assertTrue(expectedIngredients.get(i).equals(recipe.getIngredients().get(i).getIngredient().getName()));
-                assertTrue(expectedMemberOf.get(i).equals(recipe.getIngredients().get(i).getMemberOf()));
+                assertTrue(expectedMemberOf.get(i) == recipe.getIngredients().get(i).getMemberOf());
                 assertTrue(expectedAmount.get(i) == recipe.getIngredients().get(i).getAmount());
                 assertTrue(expectedUnit.get(i).equals(recipe.getIngredients().get(i).getUnit()));
             }
