@@ -52,4 +52,11 @@
     </bean>
     <bean id="listRecipe" class="de.schulprojekt.controller.RecipeListController" scope="request"/>
 
+    <bean id="signUpController" class="de.schulprojekt.controller.SignupController" scope="request">
+        <property name="userBean" ref="userBean"/>
+    </bean>
+
+    <!-- Beans -->
+    <bean id="userBean" class="de.schulprojekt.bean.UserBean" scope="session"/>
+
 </beans>

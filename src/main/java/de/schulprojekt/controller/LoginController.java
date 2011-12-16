@@ -1,5 +1,8 @@
 package de.schulprojekt.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Created by Patrick Trautmann
  * <p/>
@@ -8,4 +11,14 @@ package de.schulprojekt.controller;
  * Time: 23:09
  */
 public class LoginController {
+
+    private final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
+    public LoginController() {
+
+        logger.debug("Init LoginController");
+
+    }
+
+
 }

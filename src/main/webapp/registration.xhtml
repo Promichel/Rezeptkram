@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by Patrick Trautmann
+  
+  Contact: patrick.trautmann@gmail.com
+  Date: 16.12.11
+  Time: 20:24
+-->
+<!DOCTYPE composition
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="inc/template.xhtml">
+
+    <ui:define name="title">Registration</ui:define>
+    <ui:define name="sitename">Registration</ui:define>
+
+    <ui:define name="content">
+        <h:form id="msgForm" styleClass="alert-message error">
+            <h:messages showDetail="true"/>
+        </h:form>
+
+        <h:form id="registrationForm" styleClass="form-stacked">
+
+            <div class="row">
+                <div class="span5">
+                    <label>Username</label>
+                    <h:inputText id="username" required="true" requiredMessage="Bitte geben Sie einen Usernamen an"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span5">
+                    <label>Passwort</label>
+                    <h:inputText id="password" required="true" requiredMessage="Bitte geben Sie ein Passwort an"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span5">
+                    <label>Passwort wiederholen</label>
+                    <h:inputText id="passwordAgain" required="true" requiredMessage="Bitte geben Sie ein Passwort an"/>
+                </div>
+            </div>
+
+            <p:commandButton value="Anmelden" action="#{signUpController.signUpNewUser}" update=":msgForm"/>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
