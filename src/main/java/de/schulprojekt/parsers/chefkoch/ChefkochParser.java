@@ -1,6 +1,5 @@
 package de.schulprojekt.parsers.chefkoch;
 
-import de.schulprojekt.bean.parser.ParserParameterBean;
 import de.schulprojekt.entities.Ingredient;
 import de.schulprojekt.entities.Recipe;
 import de.schulprojekt.entities.RecipeIngredient;
@@ -24,22 +23,19 @@ public class ChefkochParser implements IParser {
     private String title;
     private int nOfPortions;
 
+
     private final static Pattern portionPattern = Pattern
-            .compile(
-                    "<h2 class=\"line\">.*?"
-                            + "<strong>Zutaten für </strong><input name=\"divisor\" size=\"\\d\""
-                            + ".*?value=\"(\\d)\" style=\".*?\".*?type=\"text\"><strong> Portionen</strong>"
-                            + ".*?<input src=\".*?\" align=\"\\w*\" border=\"\\d\" type=\"image\">.*?</h2>",
+            .compile("<div.*?id=\"rezept-zutaten\".*?<input.*?name=\"divisor\".*?value=\"(\\d{1,2})\".*?>",
                     Pattern.DOTALL);
     private final static Pattern titlePattern = Pattern.compile(
-            "<h1 class=\"big\" style=\"margin-bottom: 0px;\">(.*?)</h1>",
+            "<h1 class=\"big fn\" style=\"margin-bottom: 0px;\">(.*?)</h1>",
             Pattern.DOTALL);
     private final static Pattern tablePattern = Pattern.compile("(<table class=\"zutaten\">)(.*?)"
             + "(</table>)", Pattern.DOTALL);
     private final static Pattern formulationPattern = Pattern.compile(
             "(<div id=\"rezept-zubereitung\".*?>)(.*?)(</div>?)",
             Pattern.DOTALL);
-    private final static Pattern tableRowPattern = Pattern.compile("(<tr>)(.*?)(</tr>)",
+    private final static Pattern tableRowPattern = Pattern.compile("(<tr.*?>)(.*?)(</tr>)",
             Pattern.DOTALL);
 
     public ChefkochParser() {
@@ -68,12 +64,12 @@ public class ChefkochParser implements IParser {
     }
 
     private void parseFormulation(String htmlContent) {
-        parseTitle(htmlContent);
         Matcher matcher = formulationPattern.matcher(htmlContent);
         if (matcher.find()) {
             String recipe = matcher.group(2);
             recipe = recipe.replace("\t", "");
             recipe = recipe.replace("<br>", "");
+            recipe = recipe.replace("<br />", "");
             recipe = recipe.trim();
             this.recipe = recipe;
         } else
@@ -150,6 +146,7 @@ public class ChefkochParser implements IParser {
     }
 
     private void parseURL(String content) {
+        this.parseTitle(content);
         this.parseFormulation(content);
         this.parseIngredients(content);
         this.parseNOfPortions(content);
@@ -182,8 +179,8 @@ public class ChefkochParser implements IParser {
     }
 
     @Override
-    public Recipe fetchRecipe(ParserParameterBean parameterBean) {
-        this.setURL(parameterBean.toString());
+    public Recipe fetchRecipe(String link) {
+        this.setURL(link);
         Recipe recipe = new Recipe();
         recipe.setName(this.title);
         recipe.setText(this.getRecipe());
