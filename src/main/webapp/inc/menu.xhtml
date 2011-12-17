@@ -11,11 +11,13 @@
     <div class="topbar">
         <div class="fill">
             <div class="container">
-                <a class="brand" href="overview.html">Rezeptkram</a>
+                <a class="brand" href="start.html">Rezeptkram</a>
                 <ul class="nav">
-                    <li class="active"><a href="#">Übersicht</a></li>
-                    <!--<li><a href="#">Rezept hinzufügen</a></li>-->
-                    <!--<li><a href="#">Vorschlag</a></li>-->
+                    <li><a href="listRecipe.html">Übersicht</a></li>
+                    <h:panelGroup rendered="#{sec:isAuthenticated() and sec:getUsername() != null}">
+                        <li><a href="addRecipe.html">Rezept hinzufügen</a></li>
+                        <li><a href="prediction.html">Vorschlag</a></li>
+                    </h:panelGroup>
                 </ul>
                 <h:panelGroup rendered="#{!sec:isAuthenticated()}">
                     <form action="#{request.contextPath}/j_spring_security_check" class="form-stacked pull-right"
@@ -26,8 +28,18 @@
                         <a class="btn success" href="registration.html">Registrieren</a>
                     </form>
                 </h:panelGroup>
-                <h:panelGroup rendered="#{sec:isAuthenticated()}">
-                    Blalalalalala
+                <h:panelGroup rendered="#{sec:isAuthenticated() and sec:getUsername() != null}">
+                    <ul class="nav secondary-nav">
+                        <li class="dropdown" data-dropdown="dropdown">
+                            <a href="#" class="dropdown-toggle">#{sec:getUsername()}</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Meine Favoriten</a></li>
+                                <li><a href="#{request.contextPath}/user/settings.html">Einstellungen</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#{request.contextPath}/j_spring_security_logout">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </h:panelGroup>
             </div>
         </div>
