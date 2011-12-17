@@ -4,7 +4,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:sec="http://www.springframework.org/security/facelets/tags">
 
 <h:body>
 
@@ -14,14 +14,21 @@
                 <a class="brand" href="overview.html">Rezeptkram</a>
                 <ul class="nav">
                     <li class="active"><a href="#">Übersicht</a></li>
-                    <li><a href="#">Rezept hinzufügen</a></li>
-                    <li><a href="#">Vorschlag</a></li>
+                    <!--<li><a href="#">Rezept hinzufügen</a></li>-->
+                    <!--<li><a href="#">Vorschlag</a></li>-->
                 </ul>
-                <form action="" class="pull-right">
-                    <input class="input-small" type="text" placeholder="Benutzername"/>
-                    <input class="input-small" type="password" placeholder="Passwort"/>
-                    <button class="btn primary" type="submit">Login</button>
-                </form>
+                <h:panelGroup rendered="#{!sec:isAuthenticated()}">
+                    <form action="#{request.contextPath}/j_spring_security_check" class="form-stacked pull-right"
+                          method="post">
+                        <input class="input-small" type="text" name="j_username" placeholder="Benutzername"/>
+                        <input class="input-small" type="password" name="j_password" placeholder="Passwort"/>
+                        <button class="btn primary" type="submit">Login</button>
+                        <a class="btn success" href="registration.html">Registrieren</a>
+                    </form>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{sec:isAuthenticated()}">
+                    Blalalalalala
+                </h:panelGroup>
             </div>
         </div>
     </div>

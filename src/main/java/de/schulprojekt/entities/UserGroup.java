@@ -2,7 +2,10 @@ package de.schulprojekt.entities;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Created by Patrick Trautmann
@@ -12,10 +15,10 @@ import javax.persistence.*;
  * Time: 20:19
  */
 @Entity
-public class Group implements GrantedAuthority {
+public class UserGroup implements GrantedAuthority {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Integer id;
 
     @Basic

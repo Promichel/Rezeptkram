@@ -18,32 +18,37 @@
     <ui:define name="sitename">Registration</ui:define>
 
     <ui:define name="content">
-        <h:form id="msgForm" styleClass="alert-message error">
-            <h:messages showDetail="true"/>
+        <h:form id="msgForm" prependId="false">
+            <h:messages id="errorMessage" styleClass="alert-message error" showDetail="true"/>
         </h:form>
 
         <h:form id="registrationForm" styleClass="form-stacked">
 
-            <div class="row">
+            <div class="row clearfix">
+                <div class="span9">
+                    <p>Bevor es richtig losgehen kann, benötigst du einen Benutzeraccount bei Rezeptkram. Fülle das Registartionsformular aus, um direkt mit dem Kulinarischen Genuss zu beginnen</p>
+                </div>
+            </div>
+            <div class="row clearfix">
                 <div class="span5">
                     <label>Username</label>
-                    <h:inputText id="username" required="true" requiredMessage="Bitte geben Sie einen Usernamen an"/>
+                    <h:inputText id="username" styleClass="span5" required="true" value="#{userBean.username}"
+                                 requiredMessage="Bitte geben Sie einen Usernamen an"/>
                 </div>
             </div>
-            <div class="row">
+            <div class="row clearfix">
                 <div class="span5">
                     <label>Passwort</label>
-                    <h:inputText id="password" required="true" requiredMessage="Bitte geben Sie ein Passwort an"/>
+                    <p:password id="password" styleClass="span5" value="#{userBean.password}" required="true"
+                                requiredMessage="Bitte geben Sie ein Passwort an"/>
                 </div>
             </div>
             <div class="row">
                 <div class="span5">
-                    <label>Passwort wiederholen</label>
-                    <h:inputText id="passwordAgain" required="true" requiredMessage="Bitte geben Sie ein Passwort an"/>
+                    <p:commandButton value="Registrieren" styleClass="btn success"
+                                     action="#{signUpController.signUpNewUser}" update=":msgForm"/>
                 </div>
             </div>
-
-            <p:commandButton value="Anmelden" action="#{signUpController.signUpNewUser}" update=":msgForm"/>
         </h:form>
     </ui:define>
 

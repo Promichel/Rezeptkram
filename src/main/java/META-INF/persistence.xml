@@ -3,16 +3,16 @@
 
     <persistence-unit name="myEmf" transaction-type="RESOURCE_LOCAL">
         <class>de.schulprojekt.entities.User</class>
+        <class>de.schulprojekt.entities.UserGroup</class>
         <properties>
             <property name="hibernate.dialect" value="de.schulprojekt.model.SQLiteDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="update">
-                <!-- value=
-                   validate: validate the schema, makes no changes to the database.
-                   update: update the schema.
-                   create: creates the schema, destroying previous data.
-                   create-drop: drop the schema at the end of the session.
-                -->
-            </property>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <!-- value=
+               validate: validate the schema, makes no changes to the database.
+               update: update the schema.
+               create: creates the schema, destroying previous data.
+               create-drop: drop the schema at the end of the session.
+            -->
 
             <property name="show_sql" value="true"/>
             <property name="format_sql" value="true"/>

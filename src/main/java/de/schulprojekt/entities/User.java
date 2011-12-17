@@ -2,12 +2,10 @@ package de.schulprojekt.entities;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by Patrick Trautmann
@@ -17,7 +15,7 @@ import java.util.List;
  * Time: 20:04
  */
 @Entity
-@Transactional(value = "transactionManager")
+@Table(name = "User")
 public class User implements UserDetails {
     @GeneratedValue
     @Id
@@ -38,15 +36,15 @@ public class User implements UserDetails {
         return username;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Group> groups;
+    @OneToOne(cascade = CascadeType.ALL)
+    private UserGroup userGroup;
 
-    public List<Group> getGroups() {
-        return groups;
+    public UserGroup getUserGroup() {
+        return userGroup;
     }
 
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
+    public void setUserGroup(UserGroup groups) {
+        this.userGroup = groups;
     }
 
     @Override
@@ -82,11 +80,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(groups.size());
+        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-        for (GrantedAuthority grantedAuthority : groups) {
-            authorities.add(grantedAuthority);
-        }
+        authorities.add(userGroup);
 
         return authorities;
     }

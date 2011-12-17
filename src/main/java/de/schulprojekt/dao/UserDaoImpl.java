@@ -34,6 +34,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    @Transactional
     public void insertNewUser(User user) {
         em.persist(user);
     }

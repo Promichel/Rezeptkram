@@ -2,8 +2,8 @@ package de.schulprojekt.controller;
 
 import de.schulprojekt.bean.UserBean;
 import de.schulprojekt.dao.UserDao;
-import de.schulprojekt.entities.Group;
 import de.schulprojekt.entities.User;
+import de.schulprojekt.entities.UserGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,6 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Patrick Trautmann
@@ -49,12 +46,10 @@ public class SignupController {
 
         newUser.setUsername(userBean.getUsername());
 
-        List<Group> groups = new ArrayList<Group>();
-        Group userGroup = new Group();
-        userGroup.setGroupName("USER");
+        UserGroup userUserGroup = new UserGroup();
+        userUserGroup.setGroupName("USER");
 
-        groups.add(userGroup);
-        newUser.setGroups(groups);
+        newUser.setUserGroup(userUserGroup);
 
         PasswordEncoder encoder = new Md5PasswordEncoder();
         String hashedPass = encoder.encodePassword(userBean.getPassword(), null);
@@ -67,7 +62,7 @@ public class SignupController {
         //Login the newly generated user
         loginUser();
 
-        return "start.html?faces-redirect=true";
+        return "listRecipe.html?faces-redirect=true";
     }
 
     private void loginUser() {
@@ -87,7 +82,6 @@ public class SignupController {
 
         // Place the new Authentication object in the security context.
         SecurityContextHolder.getContext().setAuthentication(auth);
-
     }
 
     public void setUserBean(UserBean userBean) {
