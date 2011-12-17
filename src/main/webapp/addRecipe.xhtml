@@ -44,7 +44,7 @@
                 <div class="row clearfix">
                     <div class="span5">
                         <p:commandButton value="Auslesen" styleClass="btn primary" action="#{addRecipe.startParser}"
-                                         update=":recipeForm" onsuccess="parserDialog.hide()"/>
+                                         update=":recipeForm :ingredientForm" onsuccess="parserDialog.hide()"/>
                     </div>
                 </div>
             </h:form>

@@ -122,10 +122,10 @@ public class RecipeAddController {
     public String addRecipe() {
         try {
             Recipe recipe = new Recipe();
-            recipe.setName(rab.getName());
-            recipe.setText(rab.getDescription());
-            recipe.setPersonAmount(rab.getPersons());
-            recipe.setIngredients(rab.getIngredients());
+            recipe.setName(newRecipe.getName());
+            recipe.setText(newRecipe.getText());
+            recipe.setPersonAmount(newRecipe.getPersonAmount());
+            recipe.setIngredients(newRecipe.getIngredients());
             dao.insertRecipe(recipe);
             FacesContext.getCurrentInstance().addMessage(null, new
                     FacesMessage(FacesMessage.SEVERITY_INFO, "", "Das Rezept wurde hinzugefügt")

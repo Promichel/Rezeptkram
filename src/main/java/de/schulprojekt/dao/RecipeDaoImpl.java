@@ -71,7 +71,14 @@ public class RecipeDaoImpl implements RecipeDao {
         query.setFirstResult(searchBean.getFirst());
         query.setMaxResults(searchBean.getPageSize());
 
-        return (List<Recipe>) query.getResultList();
+        List<Recipe> recipes = (List<Recipe>) query.getResultList();
+
+        for (Recipe recipe : recipes) {
+            //Make some cruel debug stuff :o)
+            recipe.getIngredients().toString();
+        }
+
+        return recipes;
     }
 
     public int countSelectedRecipes(RecipeSearchBean searchBean) {

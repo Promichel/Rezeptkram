@@ -15,11 +15,8 @@ public class Recipe {
     private String text;
     private int personAmount;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<RecipeIngredient> ingredients;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Tag> tags;
 
     public int getId() {
         return id;
@@ -53,14 +50,6 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
-
     public int getPersonAmount() {
         return personAmount;
     }
@@ -71,7 +60,7 @@ public class Recipe {
 
     @Override
     public String toString() {
-        return "Recipe [id=" + id + ", name=" + name + ", text=" + text + ", personAmount=" + personAmount + ", ingredients=" + ingredients + ", tags=" + tags + "]";
+        return "Recipe [id=" + id + ", name=" + name + ", text=" + text + ", personAmount=" + personAmount + ", ingredients=" + ingredients + "]";
     }
 
 }

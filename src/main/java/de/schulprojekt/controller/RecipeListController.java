@@ -35,6 +35,10 @@ public class RecipeListController {
                 rsb.setPageSize(pageSize);
                 List<Recipe> recipes = dao.selectRecipes(rsb);
 
+                for (Recipe recipe : recipes) {
+                    logger.debug("Recipe: {}", recipe.toString());
+                }
+
                 this.setPageSize(pageSize);
                 this.setRowCount(recipes.size());
 

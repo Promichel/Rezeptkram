@@ -11,21 +11,40 @@
     <ui:define name="siteheader">Vorhandene Rezepte</ui:define>
     <ui:define name="sitename">Rezeptübersicht</ui:define>
 
+    <ui:define name="sidebar">
+        <h3>Rezeptübersicht</h3>
+
+        <p>Auf dieser Seite können Sie sich durch das Rezeptarchiv wühlen und etwas leckeres finden. Om nom nom!</p>
+
+        <h3>Vorschlag</h3>
+
+        <p>Keine Ahnung was es heute sein soll? Wie wäre es mit:</p>
+    </ui:define>
+
     <ui:define name="content">
-        <h:form id="listRecipeForm">
-            <div class="span9">
-                <p:dataTable value="#{listRecipe.recipes}" var="data"
-                             lazy="true" rows="10" paginator="true" paginatorPosition="bottom"
-                             emptyMessage="Keine Rezepte gefunden">
-                    <p:column headerText="Rezeptname">
-                        <h:outputText value="#{data.name}"/>
-                    </p:column>
-                    <p:column headerText="Personzahl">
-                        <h:outputText value="#{data.personAmount}"/>
-                    </p:column>
-                </p:dataTable>
+        <div class="row clearfix">
+            <h:form id="listRecipeForm">
+                <div class="span9">
+                    <p:dataTable value="#{listRecipe.recipes}" var="data" selection="" selectionMode="single"
+                                 dblClickSelect="true" lazy="true" rows="10" emptyMessage="Keine Rezepte gefunden">
+                        <p:column headerText="Rezeptname">
+                            <h:outputText value="#{data.name}"/>
+                        </p:column>
+                        <p:column headerText="Personzahl">
+                            <h:outputText value="#{data.personAmount}"/>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>
+        </div>
+        <div class="row clearfix">
+            <div class="span 9">
+                <h3>Information</h3>
+
+                <p>Zum anschauen eines Rezeptes einfach einen Doppelklick auf den Eintrag machen</p>
             </div>
-        </h:form>
+        </div>
+
     </ui:define>
 
 </ui:composition>
