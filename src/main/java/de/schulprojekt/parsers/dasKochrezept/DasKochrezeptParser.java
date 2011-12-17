@@ -75,12 +75,10 @@ public class DasKochrezeptParser implements IParser {
                 isText = false;
             }
             if (isText) {
-                if (returnString.length() > 0
+                if (returnString.length() > 2
                         && returnString.charAt(returnString.length() - 1) == '\n'
                         && Character.isWhitespace(content.charAt(i))) {
-                    returnString = returnString.substring(0,
-                            returnString.length() - 2)
-                            + content.charAt(i);
+                    returnString = returnString.substring(0, returnString.length() - 2) + content.charAt(i);
                 } else {
                     returnString += content.charAt(i);
                 }
