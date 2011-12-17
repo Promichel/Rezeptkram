@@ -11,7 +11,45 @@
     <ui:define name="siteheader">Neues Rezept hinzufügen</ui:define>
     <ui:define name="sitename">1. Rezeptinformationen</ui:define>
 
+    <ui:define name="sidebar">
+        <h3>Rezept importieren</h3>
+
+        <p>Sie haben die Möglichkeit auch direkt Rezepte von anderen Seiten zu importieren</p>
+
+        <h2>Importieren</h2>
+        <h:form id="importForm" prependId="false">
+            <h:selectOneMenu value="#{addRecipe.selectedParser}">
+                <f:selectItem noSelectionOption="true" itemLabel="Bitte Seite auswählen..."/>
+                <f:selectItems value="#{addRecipe.availableParsers}"/>
+                <p:ajax event="change" listener="#{addRecipe.onParserSelect}" update=":recipeForm"/>
+            </h:selectOneMenu>
+
+            <p:commandButton value="Importieren" onclick="parserDialog.show()"/>
+        </h:form>
+    </ui:define>
+
     <ui:define name="content">
+        <p:dialog id="parserDlg" widgetVar="parserDialog" header="Rezept von externer Seite importieren">
+            <h:form id="parserForm" styleClass="form-stacked">
+                <h3>Rezept importieren</h3>
+
+                <p>Geben Sie die Adresse zum Rezept ein, damit das Rezept automatisch in unser System importiert wird</p>
+
+                <div class="row clearfix">
+                    <div class="span9">
+                        <label>Adresse</label>
+                        <h:inputText styleClass="span9" value="#{addRecipe.parserUrl}"/>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="span5">
+                        <p:commandButton value="Auslesen" styleClass="btn primary" action="#{addRecipe.startParser}"
+                                         update=":recipeForm" onsuccess="parserDialog.hide()"/>
+                    </div>
+                </div>
+            </h:form>
+        </p:dialog>
+
         <h:form id="messageForm" prependId="false" styleClass="form-stacked">
             <h:messages id="errorMessage" showDetail="true" styleClass="alert-message error"/>
         </h:form>
@@ -20,13 +58,19 @@
             <div class="row clearfix">
                 <div class="span9">
                     <label>Titel</label>
-                    <p:inputText styleClass="span8" value="#{addRecipe.rab.name}"/>
+                    <p:inputText styleClass="span8" value="#{addRecipe.newRecipe.name}"/>
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="span9">
                     <label>Rezepttext</label>
-                    <p:inputTextarea styleClass="span9" value="#{addRecipe.rab.description}"/>
+                    <p:inputTextarea styleClass="span9" value="#{addRecipe.newRecipe.text}"/>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="span9">
+                    <label>Anzahl der Personen</label>
+                    <h:inputText value="#{addRecipe.newRecipe.personAmount}"/>
                 </div>
             </div>
         </h:form>
@@ -35,7 +79,7 @@
         <h:form id="ingredientForm" styleClass="form-stacked">
             <div class="span9">
 
-                <p:dataTable value="#{addRecipe.rab.ingredients}" var="data">
+                <p:dataTable value="#{addRecipe.newRecipe.ingredients}" var="data">
                     <p:column headerText="Artikelname">
                         <h:outputText value="#{data.ingredient.name}"/>
                     </p:column>
@@ -77,6 +121,9 @@
             <div class="span8">
                 <p:commandButton value="Hinzufügen" action="#{addRecipe.addRecipe}"
                                  update=":recipeForm :ingredientForm :messageForm" styleClass="btn success span3"/>
+                <p:commandButton value="Zurücksetzen" action="#{addRecipe.resetUserVars}"
+                                 update=":ingredientForm :recipeForm :messageForm :parserForm"
+                                 styleClass="btn span3 error"/>
             </div>
         </h:form>
 
