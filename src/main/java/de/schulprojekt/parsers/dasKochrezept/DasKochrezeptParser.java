@@ -5,6 +5,7 @@ import de.schulprojekt.entities.Ingredient;
 import de.schulprojekt.entities.Recipe;
 import de.schulprojekt.entities.RecipeIngredient;
 import de.schulprojekt.model.parser.IParser;
+import org.springframework.web.util.HtmlUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -152,6 +153,7 @@ public class DasKochrezeptParser implements IParser {
 	}
 
 	private void parseURL(String content) {
+        content = HtmlUtils.htmlUnescape(content);
 		this.parseFormulation(content);
 		this.parseIngredients(content);
 		this.parseNOfPortions(content);
