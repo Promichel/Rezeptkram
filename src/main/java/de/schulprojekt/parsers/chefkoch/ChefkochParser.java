@@ -3,7 +3,9 @@ package de.schulprojekt.parsers.chefkoch;
 import de.schulprojekt.entities.Ingredient;
 import de.schulprojekt.entities.Recipe;
 import de.schulprojekt.entities.RecipeIngredient;
+import de.schulprojekt.exceptions.ParserException;
 import de.schulprojekt.model.parser.IParser;
+import org.springframework.web.util.HtmlUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,9 +26,9 @@ public class ChefkochParser implements IParser {
     private int nOfPortions;
 
 
-    private final static Pattern portionPattern = Pattern
-            .compile("<div.*?id=\"rezept-zutaten\".*?<input.*?name=\"divisor\".*?value=\"(\\d{1,2})\".*?>",
-                    Pattern.DOTALL);
+    private final static Pattern portionPattern = Pattern.compile(
+            "<div.*?id=\"rezept-zutaten\".*?<input type=\"text\" name=\"divisor\".*?value=\"(\\d)\".*?>",
+            Pattern.DOTALL);
     private final static Pattern titlePattern = Pattern.compile(
             "<h1 class=\"big fn\" style=\"margin-bottom: 0px;\">(.*?)</h1>",
             Pattern.DOTALL);
@@ -44,7 +46,7 @@ public class ChefkochParser implements IParser {
         ingredients = null;
     }
 
-    private void readURL() {
+    private void readURL() throws ParserException {
         InputStream is = null;
         try {
             is = url.openStream();
@@ -52,6 +54,7 @@ public class ChefkochParser implements IParser {
             parseURL(content);
         } catch (Exception e) {
             e.printStackTrace();
+            throw new ParserException();
         } finally {
             if (is != null) {
                 try {
@@ -82,7 +85,7 @@ public class ChefkochParser implements IParser {
         this.title = matcher.group(1);
     }
 
-    private void parseIngredients(String htmlContent) {
+    private void parseIngredients(String htmlContent) throws ParserException {
         Matcher matcher = tablePattern.matcher(htmlContent);
         if (matcher.find()) {
             String table = matcher.group(2);
@@ -129,30 +132,41 @@ public class ChefkochParser implements IParser {
                     }
                     RecipeIngredient recipeIngredient = new RecipeIngredient();
                     Ingredient article = new Ingredient();
-                    article.setName(ingredient);
+                    article.setName(HtmlUtils.htmlUnescape(ingredient));
                     recipeIngredient.setIngredient(article);
                     recipeIngredient.setUnit(unit);
-                    recipeIngredient.setMemberOf(header);
-                    recipeIngredient.setAmount(this.getFloatFromQuantity(quantity));
+                    recipeIngredient.setMemberOf(HtmlUtils.htmlUnescape(header));
+                    if (quantity.isEmpty()) //hack
+                    {
+                        recipeIngredient.setAmount(0);
+                    } else {
+                        recipeIngredient.setAmount(this.getFloatFromQuantity(quantity));
+                    }
                     ingredients.add(recipeIngredient);
                 }
             }
         }
     }
 
-    private float getFloatFromQuantity(String quantity) {
-        Integer number = Integer.parseInt(quantity);
+    private float getFloatFromQuantity(String quantity) throws ParserException {
+        Integer number = -1;
+        try {
+            number = Integer.parseInt(quantity);
+        } catch (NumberFormatException e) {
+            throw new ParserException();
+        }
         return number.floatValue();
     }
 
-    private void parseURL(String content) {
+    private void parseURL(String content) throws ParserException {
+        this.parseIngredients(content);
+        content = HtmlUtils.htmlUnescape(content);
         this.parseTitle(content);
         this.parseFormulation(content);
-        this.parseIngredients(content);
         this.parseNOfPortions(content);
     }
 
-    private void setURL(String url) {
+    private void setURL(String url) throws ParserException {
         try {
             this.url = new URL(url);
         } catch (MalformedURLException e) {
@@ -172,14 +186,15 @@ public class ChefkochParser implements IParser {
     private void parseNOfPortions(String content) {
         Matcher matcher = portionPattern.matcher(content);
         if (matcher.find()) {
-            this.nOfPortions = Integer.parseInt(matcher.group(1));
+            String group = matcher.group(1);
+            this.nOfPortions = Integer.parseInt(group);
         } else {
             this.nOfPortions = -1;
         }
     }
 
     @Override
-    public Recipe fetchRecipe(String link) {
+    public Recipe fetchRecipe(String link) throws ParserException {
         this.setURL(link);
         Recipe recipe = new Recipe();
         recipe.setName(this.title);

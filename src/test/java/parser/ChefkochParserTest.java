@@ -1,6 +1,7 @@
 package parser;
 
 import de.schulprojekt.entities.Recipe;
+import de.schulprojekt.exceptions.ParserException;
 import de.schulprojekt.parsers.chefkoch.ChefkochParser;
 import org.junit.Test;
 
@@ -18,8 +19,13 @@ public class ChefkochParserTest {
     @Test
     public void aVoid() {
         ChefkochParser parser = new ChefkochParser();
-        Recipe recipe = parser.fetchRecipe("http://www.chefkoch.de/rezepte/1830281296676145/Koernerbroetchen-nach-Paniniart.html");
-        assertTrue(recipe.getName().equals("K&ouml;rnerbr&ouml;tchen nach Paniniart"));
+        Recipe recipe = null;
+        try {
+            recipe = parser.fetchRecipe("http://www.chefkoch.de/rezepte/1830281296676145/Koernerbroetchen-nach-Paniniart.html");
+        } catch (ParserException e) {
+            assertTrue("Error parsing site", false);
+        }
+        assertTrue(recipe.getName().equals("Körnerbrötchen nach Paniniart"));
         assertTrue(recipe.getPersonAmount() == 1);
         System.out.println(recipe.getText());
 
@@ -29,8 +35,8 @@ public class ChefkochParserTest {
         ArrayList<Double> expectedAmount = new ArrayList<Double>();
         ArrayList<String> expectedUnit = new ArrayList<String>();
 
-        getExpectedIngredients(expectedMemberOf);
-        getExpectedMemberOf(expectedIngredients);
+        getExpectedIngredients(expectedIngredients);
+        getExpectedMemberOf(expectedMemberOf);
         getExpectedAmount(expectedAmount);
         getExpectedUnit(expectedUnit);
 
