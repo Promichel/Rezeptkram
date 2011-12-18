@@ -87,4 +87,78 @@ public class DasKochrezeptParserTest {
         expectedAmount.add(0.0);
         expectedUnit.add("etwas");
     }
+
+    @Test
+    public void aVoid2()
+    {
+        DasKochrezeptParser parser = new DasKochrezeptParser();
+        Recipe recipe = parser.fetchRecipe("http://www.daskochrezept.de/rezepte/crepesteig-grundrezept_47595.html?param_personen=1");
+        assertTrue(!recipe.getText().equals(""));
+        assertTrue(recipe.getName().equals("Crepesteig (Grundrezept)"));
+
+
+        ArrayList<String> expectedMemberOf = new ArrayList<String>();
+        ArrayList<String> expectedIngredients = new ArrayList<String>();
+        ArrayList<Double> expectedAmount = new ArrayList<Double>();
+        ArrayList<String> expectedUnit = new ArrayList<String>();
+
+        getTestData2(expectedMemberOf, expectedIngredients, expectedAmount, expectedUnit);
+
+        boolean createNewTestData = false;
+        for (int i = 0, size = recipe.getIngredients().size(); i  < size; ++i)
+        {
+            if (createNewTestData)
+            {
+                System.out.println("expectedMemberOf.add(\"" + recipe.getIngredients().get(i).getMemberOf() + "\");");
+                System.out.println("expectedIngredients.add(\"" + recipe.getIngredients().get(i).getIngredient().getName() + "\");");
+                System.out.println("expectedAmount.add(" + recipe.getIngredients().get(i).getAmount() + ");");
+                System.out.println("expectedUnit.add(\"" + recipe.getIngredients().get(i).getUnit() + "\");");
+            }
+            else
+            {
+                assertTrue(expectedIngredients.get(i).equals(recipe.getIngredients().get(i).getIngredient().getName()));
+                assertTrue(expectedMemberOf.get(i) == recipe.getIngredients().get(i).getMemberOf());
+                assertTrue(expectedAmount.get(i) == recipe.getIngredients().get(i).getAmount());
+                assertTrue(expectedUnit.get(i).equals(recipe.getIngredients().get(i).getUnit()));
+            }
+        }
+
+        System.out.println(recipe.getText());
+    }
+
+    private void getTestData2(ArrayList<String> expectedMemberOf, ArrayList<String> expectedIngredients, ArrayList<Double> expectedAmount, ArrayList<String> expectedUnit)
+    {
+        expectedMemberOf.add(null);
+        expectedIngredients.add("Weizenmehl Type 405");
+        expectedAmount.add(31.25);
+        expectedUnit.add("g");
+        expectedMemberOf.add(null);
+        expectedIngredients.add("Zucker");
+        expectedAmount.add(12.5);
+        expectedUnit.add("g");
+        expectedMemberOf.add(null);
+        expectedIngredients.add("Salz");
+        expectedAmount.add(0.25);
+        expectedUnit.add("Prise");
+        expectedMemberOf.add(null);
+        expectedIngredients.add("Eier");
+        expectedAmount.add(0.5);
+        expectedUnit.add("St");
+        expectedMemberOf.add(null);
+        expectedIngredients.add("Milch");
+        expectedAmount.add(31.25);
+        expectedUnit.add("ml");
+        expectedMemberOf.add(null);
+        expectedIngredients.add("Wasser");
+        expectedAmount.add(31.25);
+        expectedUnit.add("ml");
+        expectedMemberOf.add(null);
+        expectedIngredients.add("Öl");
+        expectedAmount.add(0.25);
+        expectedUnit.add("EL");
+        expectedMemberOf.add(null);
+        expectedIngredients.add("Butter zum ausbacken");
+        expectedAmount.add(0.5);
+        expectedUnit.add("EL");
+    }
 }
