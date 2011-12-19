@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by Patrick Trautmann
+  
+  Contact: patrick.trautmann@gmail.com
+  Date: 18.12.11
+  Time: 16:12
+-->
+<!DOCTYPE composition
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core" template="inc/template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="rid" value="#{infoRecipe.selectedRecipeId}"/>
+    </f:metadata>
+
+    <ui:define name="siteheader"><h:form id="recipeNameForm">#{infoRecipe.selectedRecipe.name}</h:form></ui:define>
+    <ui:define name="title">Rezeptinfo</ui:define>
+    <ui:define name="sidebar">
+
+    </ui:define>
+
+    <ui:define name="sitename"></ui:define>
+
+    <ui:define name="content">
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                initWp();
+            });
+        </script>
+        <h:form id="recipeForm" styleClass="form-stacked">
+
+            <p:remoteCommand name="initWp" action="#{infoRecipe.initRecipe}" update=":recipeForm :recipeNameForm"/>
+
+            <div class="span10">
+                <div class="row clearfix">
+                    <div class="span9">
+                        <p:dataTable var="data" value="#{infoRecipe.selectedRecipe.ingredients}">
+                            <p:column headerText="Zutat">
+                                <h:outputText value="#{data.ingredient.name}"/>
+                            </p:column>
+                            <p:column headerText="Menge">
+                                <h:outputText value="#{data.amount}"/>
+                            </p:column>
+                            <p:column headerText="Einheit">
+                                <h:outputText value="#{data.unit}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="span9">
+                        <label>Zubereitung</label>
+                        <h:outputText value="#{infoRecipe.selectedRecipe.text}" styleClass="span9"/>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="span5">
+                        <label>Personenanzahl</label>
+                        <h:outputText value="#{infoRecipe.selectedRecipe.personAmount}"/>
+                    </div>
+                </div>
+                <h3>Rezept Aktionen</h3>
+
+                <div class="row">
+                    <div class="span3">
+                        <p:commandButton value="Rezept merken" styleClass="btn primary span3"/>
+                    </div>
+                    <div class="span3">
+                        <p:commandButton value="Rezept löschen" styleClass="btn error span3"/>
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

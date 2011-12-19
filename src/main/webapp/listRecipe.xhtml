@@ -19,19 +19,26 @@
         <h3>Vorschlag</h3>
 
         <p>Keine Ahnung was es heute sein soll? Wie wäre es mit:</p>
+
     </ui:define>
 
     <ui:define name="content">
         <div class="row clearfix">
             <h:form id="listRecipeForm">
                 <div class="span9">
-                    <p:dataTable value="#{listRecipe.recipes}" var="data" selection="" selectionMode="single"
-                                 dblClickSelect="true" lazy="true" rows="10" emptyMessage="Keine Rezepte gefunden">
+                    <p:dataTable value="#{listRecipe.recipes}" var="data" dblClickSelect="true" lazy="true" rows="10"
+                                 emptyMessage="Keine Rezepte gefunden">
                         <p:column headerText="Rezeptname">
                             <h:outputText value="#{data.name}"/>
                         </p:column>
                         <p:column headerText="Personzahl">
                             <h:outputText value="#{data.personAmount}"/>
+                        </p:column>
+                        <p:column>
+                            <h:link outcome="viewRecipe">
+                                <h:graphicImage library="img" name="view.gif"/>
+                                <f:param name="rid" value="#{data.id}"/>
+                            </h:link>
                         </p:column>
                     </p:dataTable>
                 </div>
