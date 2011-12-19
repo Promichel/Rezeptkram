@@ -44,7 +44,7 @@
                 <div class="row clearfix">
                     <div class="span5">
                         <p:commandButton value="Auslesen" styleClass="btn primary" action="#{addRecipe.startParser}"
-                                         update=":recipeForm :ingredientForm" onsuccess="parserDialog.hide()"/>
+                                         update=":submitForm :ingredientForm" onsuccess="parserDialog.hide()"/>
                     </div>
                 </div>
             </h:form>
@@ -54,28 +54,7 @@
             <h:messages id="errorMessage" showDetail="true" styleClass="alert-message error"/>
         </h:form>
 
-        <h:form id="recipeForm" styleClass="form-stacked">
-            <div class="row clearfix">
-                <div class="span9">
-                    <label>Titel</label>
-                    <p:inputText styleClass="span8" value="#{addRecipe.newRecipe.name}"/>
-                </div>
-            </div>
-            <div class="row clearfix">
-                <div class="span9">
-                    <label>Rezepttext</label>
-                    <p:inputTextarea styleClass="span9" value="#{addRecipe.newRecipe.text}"/>
-                </div>
-            </div>
-            <div class="row clearfix">
-                <div class="span9">
-                    <label>Anzahl der Personen</label>
-                    <h:inputText value="#{addRecipe.newRecipe.personAmount}"/>
-                </div>
-            </div>
-        </h:form>
-
-        <h3>2. Zutaten hinzufügen</h3>
+        <h3>1. Zutaten hinzufügen</h3>
         <h:form id="ingredientForm" styleClass="form-stacked">
             <div class="span9">
 
@@ -116,13 +95,32 @@
             </div>
         </h:form>
 
-        <h3>3. Zur Datenbank hinzufügen</h3>
-        <h:form id="submitForm" prependId="false">
+        <h3>2. Zur Datenbank hinzufügen</h3>
+        <h:form id="submitForm" styleClass="form-stacked">
+            <div class="row clearfix">
+                <div class="span9">
+                    <label>Titel</label>
+                    <p:inputText styleClass="span8" value="#{addRecipe.newRecipe.name}"/>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="span9">
+                    <label>Rezepttext</label>
+                    <p:inputTextarea styleClass="span9" value="#{addRecipe.newRecipe.text}"/>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="span9">
+                    <label>Anzahl der Personen</label>
+                    <h:inputText value="#{addRecipe.newRecipe.personAmount}"/>
+                </div>
+            </div>
+
             <div class="span8">
                 <p:commandButton value="Hinzufügen" action="#{addRecipe.addRecipe}"
-                                 update=":recipeForm :ingredientForm :messageForm" styleClass="btn success span3"/>
+                                 update=":submitForm :ingredientForm :messageForm" styleClass="btn success span3"/>
                 <p:commandButton value="Zurücksetzen" action="#{addRecipe.resetUserVars}"
-                                 update=":ingredientForm :recipeForm :messageForm :parserForm"
+                                 update=":ingredientForm :submitForm :messageForm :parserForm"
                                  styleClass="btn span3 error"/>
             </div>
         </h:form>

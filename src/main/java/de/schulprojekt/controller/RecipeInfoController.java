@@ -73,7 +73,7 @@ public class RecipeInfoController {
             }
         }
 
-        return null;
+        return "listRecipe?faces-redirect=true";
     }
 
     public void setSelectedRecipeId(Integer selectedRecipeId) {
