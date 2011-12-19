@@ -21,4 +21,8 @@ public interface RecipeDao {
     public int countSelectedRecipes(RecipeSearchBean searchBean);
 
     void removeRecipe(Recipe selectedRecipe);
+
+    Integer countAllRecipes();
+
+    List<Recipe> selectRecipes(int i);
 }

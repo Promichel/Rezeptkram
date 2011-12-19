@@ -94,4 +94,19 @@ public class RecipeDaoImpl implements RecipeDao {
         em.remove(recipe);
     }
 
+    @Override
+    public Integer countAllRecipes() {
+        Query result = em.createQuery("select count(r) from Recipe r");
+        return ((Long) result.getSingleResult()).intValue();
+    }
+
+    @Override
+    public List<Recipe> selectRecipes(int i) {
+
+        Query query = em.createQuery("select r from Recipe r");
+        query.setMaxResults(i);
+
+        return query.getResultList();
+    }
+
 }

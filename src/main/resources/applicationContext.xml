@@ -54,6 +54,8 @@
 
     <bean id="infoRecipe" class="de.schulprojekt.controller.RecipeInfoController" scope="request"/>
 
+    <bean id="predictionController" class="de.schulprojekt.controller.PredictionController" scope="request"/>
+
     <!--<bean id="selectedRecipe" class="de.schulprojekt.entities.Recipe" scope="session" />-->
 
     <bean id="signUpController" class="de.schulprojekt.controller.SignupController" scope="request">

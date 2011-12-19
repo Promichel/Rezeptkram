@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by Patrick Trautmann
+  
+  Contact: patrick.trautmann@gmail.com
+  Date: 19.12.11
+  Time: 05:03
+-->
+<!DOCTYPE composition
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" template="inc/template.xhtml">
+
+    <ui:define name="sitename">Rezeptplanung</ui:define>
+    <ui:define name="title">Rezeptplanung</ui:define>
+    <ui:define name="siteheader">Rezeptplanung</ui:define>
+
+    <ui:define name="sidebar">
+        <h3>Om nom nom!</h3>
+
+        <p>Es ist Essenzeit! Noch nie war es so einfach sich Rezepte für die nächsten Tage rauszusuchen.</p>
+
+        <h3>Etwas neues entdeckt?</h3>
+
+        <p>Wenn du auch etwas leckeres entdeckt hast, dann füge es doch der Rezeptdatenbank hinzu, damit alle Feinschmecker etwas davon haben.</p>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="predictionForm">
+            <h3>Das Vorschlagsystem</h3>
+
+            <div class="row clearfix">
+                <div class="span9">
+                    <p>Die Rezeptplanung ermittelt automatisch einen Essenplan für die nächsten 14 Tage für Sie. Bitte haben Sie ein
+                        wenig Geduld, während das System passende Rezepte für Sie heraus sucht.</p>
+                </div>
+            </div>
+            <h3>Ausgewählte Rezepte</h3>
+
+            <div class="row clearfix">
+                <div class="span9">
+                    <p:dataTable var="data" value="#{predictionController.selectedRecipes}">
+                        <p:column headerText="Rezeptname">
+                            <h:outputText value="#{data.name}"/>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </div>
+            <h3>Einkaufsliste</h3>
+
+            <div class="row clearfix">
+                <div class="span9">
+                    <p:dataTable var="data" value="#{predictionController.ingredientList}">
+                        <p:column headerText="Zutat">
+                            <h:outputText value="#{data.name}"/>
+                        </p:column>
+                        <p:column headerText="Menge">
+                            <h:outputText value="#{data.amount}"/>
+                        </p:column>
+                        <p:column headerText="Einheit">
+                            <h:outputText value="#{data.unit}"/>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

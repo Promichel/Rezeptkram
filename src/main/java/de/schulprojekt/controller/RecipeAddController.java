@@ -147,7 +147,8 @@ public class RecipeAddController {
             );
         }
 
-        return null;
+        newRecipe = new Recipe();
+        return "listRecipe?faces-redirect=true";
     }
 
     public String addIngredient() {

@@ -16,15 +16,17 @@
 
         <p>Sie haben die Möglichkeit auch direkt Rezepte von anderen Seiten zu importieren</p>
 
-        <h2>Importieren</h2>
+        <h3>Importieren</h3>
         <h:form id="importForm" prependId="false">
-            <h:selectOneMenu value="#{addRecipe.selectedParser}">
-                <f:selectItem noSelectionOption="true" itemLabel="Bitte Seite auswählen..."/>
-                <f:selectItems value="#{addRecipe.availableParsers}"/>
-                <p:ajax event="change" listener="#{addRecipe.onParserSelect}" update=":recipeForm"/>
-            </h:selectOneMenu>
+            <div class="clearfix">
+                <h:selectOneMenu value="#{addRecipe.selectedParser}">
+                    <f:selectItem noSelectionOption="true" itemLabel="Bitte Seite auswählen..."/>
+                    <f:selectItems value="#{addRecipe.availableParsers}"/>
+                    <p:ajax event="change" listener="#{addRecipe.onParserSelect}" update=":recipeForm"/>
+                </h:selectOneMenu>
+            </div>
 
-            <p:commandButton value="Importieren" onclick="parserDialog.show()"/>
+            <p:commandButton value="Importieren" styleClass="btn primary" onclick="parserDialog.show()"/>
         </h:form>
     </ui:define>
 
@@ -58,7 +60,8 @@
         <h:form id="ingredientForm" styleClass="form-stacked">
             <div class="span9">
 
-                <p:dataTable value="#{addRecipe.newRecipe.ingredients}" var="data">
+                <p:dataTable value="#{addRecipe.newRecipe.ingredients}" var="data"
+                             emptyMessage="Keine Zutaten hinzugefügt">
                     <p:column headerText="Artikelname">
                         <h:outputText value="#{data.ingredient.name}"/>
                     </p:column>
