@@ -2,9 +2,11 @@ package de.schulprojekt.controller;
 
 import de.schulprojekt.dao.RecipeDao;
 import de.schulprojekt.entities.Recipe;
+import de.schulprojekt.entities.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.taglibs.facelets.SpringSecurityELLibrary;
 
 /**
  * Created by Patrick Trautmann
@@ -46,6 +48,32 @@ public class RecipeInfoController {
         logger.info("Read out Recipe with id {}", selectedRecipeId);
         selectedRecipe = dao.selectRecipe(selectedRecipeId.intValue());
 
+    }
+
+    public String rememberRecipe() {
+
+        logger.debug("Put Recipe on User Remember List");
+
+
+        return null;
+    }
+
+    public String deleteRecipe() {
+
+        selectedRecipe = dao.selectRecipe(selectedRecipeId);
+
+        if (selectedRecipe != null) {
+
+            logger.debug("Check if Recipe was created by logged in User");
+            User logedinUser = SpringSecurityELLibrary.getUserDetails();
+            logger.debug("Logged In User Information: {}", logedinUser.toString());
+            if (selectedRecipe.getOwner().getId().equals(logedinUser.getId())) {
+                logger.debug("Remove Recipe from Database");
+                dao.removeRecipe(selectedRecipe);
+            }
+        }
+
+        return null;
     }
 
     public void setSelectedRecipeId(Integer selectedRecipeId) {

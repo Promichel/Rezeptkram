@@ -68,10 +68,13 @@
 
                 <div class="row">
                     <div class="span3">
-                        <p:commandButton value="Rezept merken" styleClass="btn primary span3"/>
+                        <p:commandButton value="Rezept merken" styleClass="btn primary span3"
+                                         action="#{infoRecipe.rememberRecipe}"/>
                     </div>
                     <div class="span3">
-                        <p:commandButton value="Rezept löschen" styleClass="btn error span3"/>
+                        <h:inputHidden value="#{infoRecipe.selectedRecipeId}"/>
+                        <p:commandButton value="Rezept löschen" styleClass="btn error span3"
+                                         action="#{infoRecipe.deleteRecipe}"/>
                     </div>
                 </div>
             </div>

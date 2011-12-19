@@ -18,6 +18,9 @@ public class Recipe {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<RecipeIngredient> ingredients;
 
+    @OneToOne
+    private User owner;
+
     public int getId() {
         return id;
     }
@@ -58,9 +61,23 @@ public class Recipe {
         this.personAmount = personAmount;
     }
 
-    @Override
-    public String toString() {
-        return "Recipe [id=" + id + ", name=" + name + ", text=" + text + ", personAmount=" + personAmount + ", ingredients=" + ingredients + "]";
+    public User getOwner() {
+        return owner;
     }
 
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", text='" + text + '\'' +
+                ", personAmount=" + personAmount +
+                ", ingredients=" + ingredients +
+                ", owner=" + owner +
+                '}';
+    }
 }

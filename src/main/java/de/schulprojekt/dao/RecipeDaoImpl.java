@@ -85,4 +85,13 @@ public class RecipeDaoImpl implements RecipeDao {
         return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
+    @Transactional
+    public void removeRecipe(Recipe selectedRecipe) {
+        logger.info("Remove recipe: {} from database", selectedRecipe.toString());
+
+        Recipe recipe = em.merge(selectedRecipe);
+        em.remove(recipe);
+    }
+
 }

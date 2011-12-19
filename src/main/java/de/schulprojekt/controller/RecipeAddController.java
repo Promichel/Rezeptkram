@@ -5,6 +5,7 @@ import de.schulprojekt.dao.RecipeDao;
 import de.schulprojekt.entities.Ingredient;
 import de.schulprojekt.entities.Recipe;
 import de.schulprojekt.entities.RecipeIngredient;
+import de.schulprojekt.entities.User;
 import de.schulprojekt.exceptions.ParserException;
 import de.schulprojekt.model.parser.IParser;
 import de.schulprojekt.parsers.chefkoch.ChefkochParser;
@@ -12,6 +13,7 @@ import de.schulprojekt.parsers.dasKochrezept.DasKochrezeptParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.taglibs.facelets.SpringSecurityELLibrary;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlSelectOneMenu;
@@ -126,6 +128,12 @@ public class RecipeAddController {
             recipe.setText(newRecipe.getText());
             recipe.setPersonAmount(newRecipe.getPersonAmount());
             recipe.setIngredients(newRecipe.getIngredients());
+
+            //Get logged in User
+            logger.debug("Read out User from Spring Security Context");
+            User owner = SpringSecurityELLibrary.getUserDetails();
+            recipe.setOwner(owner);
+
             dao.insertRecipe(recipe);
             FacesContext.getCurrentInstance().addMessage(null, new
                     FacesMessage(FacesMessage.SEVERITY_INFO, "", "Das Rezept wurde hinzugefügt")
