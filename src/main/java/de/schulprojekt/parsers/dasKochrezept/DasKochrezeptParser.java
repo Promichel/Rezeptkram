@@ -135,14 +135,18 @@ public class DasKochrezeptParser implements IParser {
     }
 
     private float getFloatFromQuantity(String quantity) {
-
-        Pattern numberPattern = Pattern.compile("(\\d)/(\\d)");
+        Pattern numberPattern = Pattern.compile("(\\d*)?\\s?(\\d)/(\\d)");
         Matcher numberMatcher = numberPattern.matcher(quantity);
         if (numberMatcher.find()) {
-            int num1 = Integer.parseInt(numberMatcher.group(1));
-            int num2 = Integer.parseInt(numberMatcher.group(2));
+            String number1 = numberMatcher.group(1);
+            float num1 = 0;
+            if (!number1.isEmpty()) {
+                num1 = Integer.parseInt(numberMatcher.group(1));
+            }
+            float num2 = Integer.parseInt(numberMatcher.group(2));
+            float num3 = Integer.parseInt(numberMatcher.group(3));
 
-            return num1 / num2;
+            return num1 + num2 / num3;
         } else if (quantity.equals("")) {
             return 0;
         }
